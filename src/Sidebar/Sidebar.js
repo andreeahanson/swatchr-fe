@@ -19,7 +19,7 @@ class Sidebar extends Component {
     return currentProject.palettes.map(palette => {
       const { color1, color2, color3, color4, color5, name } = palette;
       const colors = [color1, color2, color3, color4, color5];
-      return <Palette colors={colors} name={name} />;
+      return <Palette colors={colors} name={name} returnColors={this.props.returnColors} />;
     });
   };
 
