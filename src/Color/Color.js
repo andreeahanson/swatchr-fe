@@ -4,7 +4,6 @@ import "./Color.scss";
 class Color extends Component {
   state = {
     hex: "",
-    //name: '',
     locked: false
   };
 
@@ -17,7 +16,7 @@ class Color extends Component {
     const lockedStatus = classString === "card-locked" ? "Unlock" : "Lock";
 
     return (
-      <article>
+      <article style={{ "backgroundColor": `#${this.props.hex}` }}>
         <p>COLOR!!!!!!!</p>
         <button className={classString} onClick={() => this.toggleLock}>
           {lockedStatus}

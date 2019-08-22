@@ -4,14 +4,15 @@ import "./ColorContainer.scss";
 
 const ColorContainer = props => {
   const displayColors = () => {
-    return props.colors.filter(color => {
+    return props.colors.map(color => {
       if (!color.locked) {
-        return <Color hex={color.hex} locked={false} />;
+        return <Color hex={color.hex} locked={color.locked} key={color.hex}/>;
       }
+      return null;
     });
   };
   return (
-    <main>
+    <main className="color-container">
       <h2>ColorContainer</h2>
       {displayColors()}
     </main>
