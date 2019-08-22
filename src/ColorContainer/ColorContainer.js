@@ -6,8 +6,9 @@ const ColorContainer = props => {
   const displayColors = () => {
     return props.colors.map(color => {
       if (!color.locked) {
-        return <Color hex={color.hex} locked={color.locked} />;
+        return <Color hex={color.hex} locked={color.locked} key={color.hex}/>;
       }
+      return null;
     });
   };
   return (
