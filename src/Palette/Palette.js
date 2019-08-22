@@ -28,8 +28,8 @@ class Palette extends Component {
     this.setState({ name: e.target.value });
   };
 
-  displayEditName = () => {
-    this.setState({ displayInput: true });
+  toggleEditName = () => {
+    this.setState({ displayInput: !this.state.displayInput });
   };
 
   render() {
@@ -37,7 +37,8 @@ class Palette extends Component {
       <section className="palette">
         <div className="palette-header">
           <h4>{this.props.name}</h4>
-          <button onClick={this.displayEditName}>Edit</button>
+          <button onClick={this.toggleEditName}>Edit</button>
+          {this.state.displayInput && <input type="text" value={this.state.name} name="name" onChange={this.handleChange} className="edit-palette-input" />}
           <button>X</button>
         </div>
         <div onClick={this.handleClick} className="palette-colors">
