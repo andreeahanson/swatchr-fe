@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-// import Sidebar from '../Sidebar/Sidebar';
+import Sidebar from '../Sidebar/Sidebar';
 import ColorContainer from '../ColorContainer/ColorContainer';
-import { fetchProjects } from "../apiCalls";
+import { fetchProjects, fetchOneProject } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
 
@@ -20,9 +20,11 @@ class App extends Component {
   }
 
   returnProjectWithPalettes = async id => {
-    const projectWithPalettes = await fetch(
+    console.log(id)
+    const projectWithPalettes = await fetchOneProject(
       `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
     );
+    console.log(projectWithPalettes)
     return projectWithPalettes;
   };
 
@@ -58,7 +60,7 @@ class App extends Component {
       <>
         <h1>App</h1>
         <ColorContainer colors={this.state.colors}/>
-        {/* <Sidebar projects={this.state.projects} returnColors={this.returnColors}/> */}
+        {this.state.projects.length > 0 && <Sidebar projects={this.state.projects} returnColors={this.returnColors} returnProjectWithPalettes={this.returnProjectWithPalettes}/>}
       </>
     );
   }
