@@ -12,11 +12,11 @@ export const fetchProjects = async (url) => {
   }
 }
 
-export const fetchOneProject = async (url, id) => {
+export const fetchOneProject = async (url) => {
   try {
-    const response = await fetch(url, id)
+    const response = await fetch(url)
     if(!response.ok){
-      throw new Error("Could not fetch projects")
+      throw new Error("Could not fetch project")
     } else {
       const project = response.json();
       return project
