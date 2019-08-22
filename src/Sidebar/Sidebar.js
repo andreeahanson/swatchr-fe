@@ -14,10 +14,10 @@ class Sidebar extends Component {
   };
 
   displayPalettes = () => {
-    return this.state.currentProject.palettes.map(palette => {
+    return this.state.currentProject.palettes.map((palette, i) => {
       const { color1, color2, color3, color4, color5, name } = palette;
       const colors = [color1, color2, color3, color4, color5];
-      return <Palette colors={colors} name={name} returnColors={this.props.returnColors} />;
+      return <Palette key={i} colors={colors} name={name} returnColors={this.props.returnColors} />;
     });
   };
 
@@ -30,11 +30,17 @@ class Sidebar extends Component {
     ));
   };
   
-  selectProject = e => {
-    const projectId = e.nativeEvent.target.selectedOptions[0].id;
-    const currentProject = projectId !== 0 && this.props.returnProjectWithPalettes(projectId);
-    this.setState({ 
-      selectedProject: e.target.value,
+  selectProject = async e => {
+    const projectId = parseInt(e.nativeEvent.target.selectedOptions[0].id);
+    const projectValue = e.nativeEvent.target.selectedOptions[0].value;
+    let currentProject;
+    if(projectId === 0) {
+      currentProject = {}
+    } else {
+      currentProject = await this.props.returnProjectWithPalettes(projectId);
+    }
+    this.setState({
+      selectedProject: projectValue,
       currentProject
     });
   };

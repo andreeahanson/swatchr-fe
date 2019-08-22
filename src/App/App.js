@@ -20,11 +20,9 @@ class App extends Component {
   }
 
   returnProjectWithPalettes = async id => {
-    console.log(id)
     const projectWithPalettes = await fetchOneProject(
       `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
     );
-    console.log(projectWithPalettes)
     return projectWithPalettes;
   };
 
