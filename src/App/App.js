@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 // import Sidebar from '../Sidebar/Sidebar';
-// import ColorContainer from '../ColorContainer/ColorContainer';
+import ColorContainer from '../ColorContainer/ColorContainer';
 import { fetchProjects } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
 
 class App extends Component {
   state = {
-    projects: []
+    projects: [],
+    colors: []
   };
 
   async componentDidMount() {
+    this.state.colors.length === 0 && this.createScheme();
     const projects = await fetchProjects(
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
@@ -25,7 +27,7 @@ class App extends Component {
   };
 
   returnColors = colors => {
-    return colors;
+    this.setState({ colors });
   };
 
   returnRandomHex = () => {
@@ -41,15 +43,21 @@ class App extends Component {
     let scheme = new ColorScheme();
     const randomColor = this.returnRandomHex()
     scheme.from_hex(randomColor); 
-    let colors = [ ...scheme.colors(), randomColor];
-    return colors;
+    let rawColors = [ ...scheme.colors(), randomColor];
+    let colors = rawColors.map(color => {
+      return {
+        hex: color,
+        locked: false
+      }
+    })
+    this.setState({ colors });
   }
 
   render() {
     return (
       <>
         <h1>App</h1>
-        {/* <ColorContainer colors={this.returnColors()}/> */}
+        <ColorContainer colors={this.state.colors}/>
         {/* <Sidebar projects={this.state.projects} returnColors={this.returnColors}/> */}
       </>
     );
