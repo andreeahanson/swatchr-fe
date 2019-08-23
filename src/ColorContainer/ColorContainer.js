@@ -3,6 +3,7 @@ import Color from "../Color/Color";
 import "./ColorContainer.scss";
 
 const ColorContainer = props => {
+  console.log(props.colors)
   const displayColors = () => {
     return props.colors.map(color => {
       if (!color.locked) {
@@ -13,7 +14,6 @@ const ColorContainer = props => {
   };
   return (
     <main className="color-container">
-      <h2>ColorContainer</h2>
       {displayColors()}
     </main>
   );

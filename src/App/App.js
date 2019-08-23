@@ -26,7 +26,17 @@ class App extends Component {
     return projectWithPalettes;
   };
 
-  returnColors = colors => {
+  cleanColors = colors => {
+    return colors.map(color => {
+      return {
+        hex: color,
+        locked: false
+      };
+    });
+  }
+
+  returnColors = rawColors => {
+    const colors = this.cleanColors(rawColors);
     this.setState({ colors });
   };
 
@@ -44,19 +54,14 @@ class App extends Component {
     const randomColor = this.returnRandomHex()
     scheme.from_hex(randomColor); 
     let rawColors = [ ...scheme.colors(), randomColor];
-    let colors = rawColors.map(color => {
-      return {
-        hex: color,
-        locked: false
-      }
-    })
+    let colors = this.cleanColors(rawColors);
     this.setState({ colors });
   }
 
   render() {
     return (
       <>
-        <h1>App</h1>
+        <h1>Swatchr</h1>
         <ColorContainer colors={this.state.colors}/>
         {this.state.projects.length > 0 && <Sidebar projects={this.state.projects} returnColors={this.returnColors} returnProjectWithPalettes={this.returnProjectWithPalettes}/>}
       </>

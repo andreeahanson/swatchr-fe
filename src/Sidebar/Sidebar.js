@@ -50,6 +50,7 @@ class Sidebar extends Component {
   };
 
   toggleInput = e => {
+    e.preventDefault();
     if (e.target.name === "paletteBtn") {
       this.setState({ addPalette: !this.state.addPalette });
     } else {
