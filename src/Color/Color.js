@@ -3,7 +3,7 @@ import "./Color.scss";
 
 class Color extends Component {
   state = {
-    hex: "",
+    // hex: "",
     locked: false
   };
 
