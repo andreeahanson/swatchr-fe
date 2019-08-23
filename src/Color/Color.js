@@ -16,9 +16,9 @@ class Color extends Component {
     const lockedStatus = classString === "card-locked" ? "Unlock" : "Lock";
 
     return (
-      <article style={{ "backgroundColor": `#${this.props.hex}` }}>
+      <article className="color" style={{ "backgroundColor": `#${this.props.hex}` }}>
         <p>#{this.props.hex}</p>
-        <button className={classString} onClick={() => this.toggleLock}>
+        <button className={`lock-btn ${classString}`} onClick={() => this.toggleLock}>
           {lockedStatus}
         </button>
       </article>
