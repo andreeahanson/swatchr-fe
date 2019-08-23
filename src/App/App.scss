@@ -1,5 +1,7 @@
-h1 {
+.app-header {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .colors-sidebar-wrapper {
