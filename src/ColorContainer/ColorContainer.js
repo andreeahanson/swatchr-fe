@@ -1,28 +1,26 @@
-import React, { Component } from "react";
+import React from "react";
 import Color from "../Color/Color";
 import "./ColorContainer.scss";
 
-class ColorContainer extends Component {
-  displayColors = () => {
-    return this.props.colors.map(color => {
+const ColorContainer = props => {
+  const displayColors = () => {
+    return props.colors.map(color => {
       return (
         <Color
           hex={color.hex}
           locked={color.locked}
           key={color.hex}
-          toggleLockedColor={this.props.toggleLockedColor}
+          toggleLockedColor={props.toggleLockedColor}
         />
       );
     });
   };
 
-  render() {
     return (
       <main className="color-container">
-        {this.props.colors && this.displayColors()}
+        {props.colors && displayColors()}
       </main>
     );
-  }
 }
 
 export default ColorContainer;
