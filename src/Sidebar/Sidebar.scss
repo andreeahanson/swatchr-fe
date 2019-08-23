@@ -13,3 +13,27 @@
 .sidebar {
   padding: 8px;
 }
+
+.sidebar-wrapper {
+  display: flex;
+}
+
+.sidebar-arrow {
+  align-self: center;
+  margin-left: -40px;
+  background: white;
+  border-radius: 10px 0px 0px 10px;
+  // position: relative;
+  // z-index: 10;
+  opacity: .5;
+  padding: 10px 0px;
+
+  img{
+    height: 40px;
+  }
+
+  &:hover{
+    cursor: pointer;
+    opacity: .8;
+  }
+}
