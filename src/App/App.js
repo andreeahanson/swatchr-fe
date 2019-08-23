@@ -29,7 +29,7 @@ class App extends Component {
   cleanColors = colors => {
     return colors.map(color => {
       return {
-        hex: color,
+        hex: color.toUpperCase(),
         locked: false
       };
     });
@@ -99,7 +99,7 @@ class App extends Component {
       <main className="app">
         <header className="app-header">
           <h1>Swatchr</h1>
-          <button onClick={this.handleClick}>Generate Scheme</button>
+          <button onClick={this.handleClick}>Generate Scheme >></button>
         </header>
         <div className="colors-sidebar-wrapper">
           <ColorContainer toggleLockedColor={this.toggleLockedColor} colors={this.state.colors} />
