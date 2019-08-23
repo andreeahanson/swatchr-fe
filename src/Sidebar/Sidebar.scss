@@ -1,0 +1,15 @@
+@mixin flexCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar,
+.projects-form,
+.palettes-section {
+  @include flexCol;
+}
+
+.sidebar {
+  padding: 8px;
+}

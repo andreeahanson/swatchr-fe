@@ -60,11 +60,19 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <main className="app">
         <h1>Swatchr</h1>
-        <ColorContainer colors={this.state.colors}/>
-        {this.state.projects.length > 0 && <Sidebar projects={this.state.projects} returnColors={this.returnColors} returnProjectWithPalettes={this.returnProjectWithPalettes}/>}
-      </>
+        <div className="colors-sidebar-wrapper">
+          <ColorContainer colors={this.state.colors} />
+          {this.state.projects.length > 0 && (
+            <Sidebar
+              projects={this.state.projects}
+              returnColors={this.returnColors}
+              returnProjectWithPalettes={this.returnProjectWithPalettes}
+            />
+          )}
+        </div>
+      </main>
     );
   }
 }
