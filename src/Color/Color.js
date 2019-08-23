@@ -3,7 +3,6 @@ import "./Color.scss";
 
 class Color extends Component {
   state = {
-    // hex: "",
     locked: false
   };
 
@@ -18,15 +17,28 @@ class Color extends Component {
   };
 
   render() {
-    const classString = `color-${this.state.locked && "locked"}`;
-    const lockedStatus = classString === "card-locked" ? "Unlock" : "Lock";
-
     return (
-      <article className="color" style={{ "backgroundColor": `#${this.props.hex}` }}>
+      <article
+        className="color"
+        style={{ backgroundColor: `#${this.props.hex}` }}
+      >
         <p>#{this.props.hex}</p>
-        <button className={`lock-btn ${classString}`} onClick={this.toggleLock}>
-          {lockedStatus}
-        </button>
+        {this.state.locked && (
+          <img
+            onClick={this.toggleLock}
+            className="lock-icon"
+            src="./lock.svg"
+            alt="unlocked padlock icon"
+          />
+        )}
+        {!this.state.locked && (
+          <img
+            onClick={this.toggleLock}
+            className="lock-icon"
+            src="./unlock.svg"
+            alt="locked padlock icon"
+          />
+        )}
       </article>
     );
   }
