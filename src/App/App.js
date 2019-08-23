@@ -58,10 +58,18 @@ class App extends Component {
     this.setState({ colors });
   }
 
+  handleClick= (e) => {
+    e.preventDefault();
+    this.createScheme();
+  }
+
   render() {
     return (
       <main className="app">
-        <h1>Swatchr</h1>
+        <header className="app-header">
+          <h1>Swatchr</h1>
+          <button onClick={this.handleClick}>Generate Scheme</button>
+        </header>
         <div className="colors-sidebar-wrapper">
           <ColorContainer colors={this.state.colors} />
           {this.state.projects.length > 0 && (
