@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Palette from "../Palette/Palette";
+import AddForm from "../AddForm/AddForm";
 import "./Sidebar.scss";
 
 class Sidebar extends Component {
@@ -74,46 +75,35 @@ class Sidebar extends Component {
     return (
       <div className="sidebar-wrapper">
         <div className="sidebar-arrow" onClick={this.toggleNav}>
-          {!this.state.navDisplay && <img src="./left.png" alt="left-caret"/>}
-          {this.state.navDisplay && <img src="./right.png" alt="right-caret"/>}
+          {!this.state.navDisplay && <img src="./left.png" alt="left-caret" />}
+          {this.state.navDisplay && <img src="./right.png" alt="right-caret" />}
         </div>
-        {this.state.navDisplay && 
-        <nav className="sidebar">
-          <form className="projects-form">
-            <select
-              className="projects-select"
-              onChange={this.selectProject}
-              value={this.state.selectedProject}
-            >
-              <option value="Select Project" id={0}>
-                Select Project
-              </option>
-              {this.props.projects.length && this.displayOptions()}
-            </select>
-            <div 
-            className="sidebar-add-container add-project"
-            name="projectBtn"
-            onClick={this.toggleInput}
-            >
-              <img
-                className="add-proj-btn"
-                src='./plus.png'
-                alt='plus-icon'
-                placeholder='Add Project'
-              />
-              {!this.state.addProject && <p>Add Project</p>}
-            {this.state.addProject && (
-              <input
-                name="projectName"
-                type="text"
-                value={this.state.projectName}
-                onChange={this.handleChange}
-                className="add-proj-input input-animation"
-              />
-            )}
-            </div>
-          </form>
-          <form className="palettes-form">
+        {this.state.navDisplay && (
+          <nav className="sidebar">
+            <form className="projects-form">
+              <select
+                className="projects-select"
+                onChange={this.selectProject}
+                value={this.state.selectedProject}
+              >
+                <option value="Select Project" id={0}>
+                  Select Project
+                </option>
+                {this.props.projects.length && this.displayOptions()}
+              </select>
+            </form>
+            <AddForm
+              imageAlt="plus icon"
+              imagePath="./plus.png"
+              label="Add Project"
+            />
+            <AddForm
+              imageAlt="save icon"
+              imagePath="./save.png"
+              label="Save Palette"
+            />
+            {/* Render AddForm for Projects */}
+            {/* <form className="palettes-form">
           <div 
             className="sidebar-add-container add-project"
             name="paletteBtn"
@@ -135,11 +125,12 @@ class Sidebar extends Component {
               />
             )}
           </div>
-          </form>
-          <section className="palettes-section">
-            {this.state.currentProject.palettes && this.displayPalettes()}
-          </section>
-        </nav>}
+          </form> */}
+            <section className="palettes-section">
+              {this.state.currentProject.palettes && this.displayPalettes()}
+            </section>
+          </nav>
+        )}
       </div>
     );
   }

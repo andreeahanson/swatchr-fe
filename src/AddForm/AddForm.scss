@@ -1,0 +1,43 @@
+@keyframes inputAnimation {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.input-animation{
+  animation: inputAnimation .3s;
+  transform-origin: left;
+  overflow: hidden;
+}
+
+.sidebar-add-container{
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+  width: 90%;
+  height: 35px;
+  margin-top: 40px;
+  img {
+    height: 20px;
+    margin-right: 5px;
+    &:hover {
+      cursor: pointer;
+      opacity: .5;
+    }
+  }
+  p{
+    margin: 0px;
+  }
+  input {
+    width: 100%;
+    height: 25px;
+    border: 1px solid gray;
+    border-radius: 4px;
+  }
+}
+
