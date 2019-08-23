@@ -7,8 +7,14 @@ class Color extends Component {
     locked: false
   };
 
-  toggleLock = () => {
-    this.setState({ locked: !this.state.locked });
+  toggleLock = async (e) => {
+    e.preventDefault();
+    await this.setState({ locked: !this.state.locked });
+    const colorObj = {
+      hex: this.props.hex,
+      locked: this.state.locked
+    }
+    this.props.toggleLockedColor(colorObj)
   };
 
   render() {
@@ -18,7 +24,7 @@ class Color extends Component {
     return (
       <article className="color" style={{ "backgroundColor": `#${this.props.hex}` }}>
         <p>#{this.props.hex}</p>
-        <button className={`lock-btn ${classString}`} onClick={() => this.toggleLock}>
+        <button className={`lock-btn ${classString}`} onClick={this.toggleLock}>
           {lockedStatus}
         </button>
       </article>
