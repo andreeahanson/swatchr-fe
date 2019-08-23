@@ -90,45 +90,51 @@ class Sidebar extends Component {
               </option>
               {this.props.projects.length && this.displayOptions()}
             </select>
-            <div className="sidebar-add-container add-project">
+            <div 
+            className="sidebar-add-container add-project"
+            name="projectBtn"
+            onClick={this.toggleInput}
+            >
               <img
-                name="projectBtn"
                 className="add-proj-btn"
-                onClick={this.toggleInput}
                 src='./plus.png'
                 alt='plus-icon'
+                placeholder='Add Project'
               />
-              <p>Add Project</p>
-            </div>
+              {!this.state.addProject && <p>Add Project</p>}
             {this.state.addProject && (
               <input
                 name="projectName"
                 type="text"
                 value={this.state.projectName}
                 onChange={this.handleChange}
-                className="add-proj-input"
+                className="add-proj-input input-animation"
               />
             )}
+            </div>
           </form>
           <form className="palettes-form">
-          <div className="sidebar-add-container add-project">
+          <div 
+            className="sidebar-add-container add-project"
+            name="paletteBtn"
+            onClick={this.toggleInput}
+          >
             <img
-                  name="paletteBtn"
                   className="save-palette-btn"
                   src='./save.png'
                   alt='save-icon'
                 />
-              <p>Save Palette</p>
-          </div>
+              {!this.state.addPalette && <p>Save Palette</p>}
             {this.state.addPalette && (
               <input
                 name="paletteName"
                 type="text"
                 value={this.state.paletteName}
                 onChange={this.handleChange}
-                className="add-palette-input"
+                className="add-palette-input input-animation"
               />
             )}
+          </div>
           </form>
           <section className="palettes-section">
             {this.state.currentProject.palettes && this.displayPalettes()}
