@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
+
 @mixin flexCol {
   display: flex;
   flex-direction: column;
@@ -12,6 +14,24 @@
 
 .sidebar {
   padding: 8px;
+  width: 15vw;
+}
+
+.projects-form {
+  width: 100%;
+
+  select {
+    width: 90%;
+    height: 35px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: white;
+    &:hover{
+      cursor: pointer;
+      background: lightgray;
+    }
+  }
 }
 
 .sidebar-wrapper {
@@ -23,8 +43,6 @@
   margin-left: -40px;
   background: white;
   border-radius: 10px 0px 0px 10px;
-  // position: relative;
-  // z-index: 10;
   opacity: .5;
   padding: 10px 0px;
 
@@ -37,3 +55,35 @@
     opacity: .8;
   }
 }
+
+.sidebar-add-container{
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+  width: 90%;
+  img {
+    height: 20px;
+    margin-right: 5px;
+  }
+  p{
+    margin: 0px;
+  }
+}
+
+@keyframes inputAnimation {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.input-animation{
+  animation: inputAnimation .3s;
+  transform-origin: left;
+  overflow: hidden;
+}
+
