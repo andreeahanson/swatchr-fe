@@ -90,13 +90,16 @@ class Sidebar extends Component {
               </option>
               {this.props.projects.length && this.displayOptions()}
             </select>
-            <button
-              name="projectBtn"
-              className="add-proj-btn"
-              onClick={this.toggleInput}
-            >
-              + Add Project
-            </button>
+            <div className="sidebar-add-container add-project">
+              <img
+                name="projectBtn"
+                className="add-proj-btn"
+                onClick={this.toggleInput}
+                src='./plus.png'
+                alt='plus-icon'
+              />
+              <p>Add Project</p>
+            </div>
             {this.state.addProject && (
               <input
                 name="projectName"
@@ -108,13 +111,15 @@ class Sidebar extends Component {
             )}
           </form>
           <form className="palettes-form">
-            <button
-              name="paletteBtn"
-              className="add-palette-btn"
-              onClick={this.toggleInput}
-            >
-              + Save palette
-            </button>
+          <div className="sidebar-add-container add-project">
+            <img
+                  name="paletteBtn"
+                  className="save-palette-btn"
+                  src='./save.png'
+                  alt='save-icon'
+                />
+              <p>Save Palette</p>
+          </div>
             {this.state.addPalette && (
               <input
                 name="paletteName"
