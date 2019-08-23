@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
+
 @mixin flexCol {
   display: flex;
   flex-direction: column;
@@ -12,6 +14,25 @@
 
 .sidebar {
   padding: 8px;
+  width: 15vw;
+}
+
+.projects-form {
+  width: 100%;
+
+  select {
+    width: 90%;
+    height: 35px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 1rem;
+    background: white;
+    &:hover{
+      cursor: pointer;
+      background: lightgray;
+    }
+  }
 }
 
 .sidebar-wrapper {
