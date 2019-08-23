@@ -33,10 +33,24 @@ class App extends Component {
         locked: false
       };
     });
-  }
+  };
 
   returnColors = rawColors => {
     const colors = this.cleanColors(rawColors);
+    this.setState({ colors });
+  };
+
+  toggleLockedColor = colorObj => {
+    const colors = this.state.colors.map(color => {
+      if (color.hex === colorObj.hex) {
+        return {
+          hex: colorObj.hex,
+          locked: colorObj.locked
+        };
+      } else {
+        return color;
+      }
+    });
     this.setState({ colors });
   };
 
@@ -51,17 +65,34 @@ class App extends Component {
 
   createScheme = () => {
     let scheme = new ColorScheme();
-    const randomColor = this.returnRandomHex()
-    scheme.from_hex(randomColor); 
-    let rawColors = [ ...scheme.colors(), randomColor];
-    let colors = this.cleanColors(rawColors);
-    this.setState({ colors });
+    const randomColor = this.returnRandomHex();
+    scheme.from_hex(randomColor);
+    let rawColors = [...scheme.colors(), randomColor];
+    let newColors = this.cleanColors(rawColors);
+    if (this.state.colors.length) {
+      const colors = this.mapLockedColors(newColors);
+      this.setState({ colors });
+    } else {
+      const colors = newColors;
+      this.setState({ colors });
+    }
+  };
+
+  mapLockedColors = newColors => {
+    return newColors.map((newColor, index) => {
+      const oldColor = this.state.colors[index];
+      if (oldColor.locked) {
+        return oldColor;
+      } else {
+        return newColor;
+      }
+    });
   }
 
-  handleClick= (e) => {
+  handleClick = e => {
     e.preventDefault();
     this.createScheme();
-  }
+  };
 
   render() {
     return (
@@ -71,7 +102,7 @@ class App extends Component {
           <button onClick={this.handleClick}>Generate Scheme</button>
         </header>
         <div className="colors-sidebar-wrapper">
-          <ColorContainer colors={this.state.colors} />
+          <ColorContainer toggleLockedColor={this.toggleLockedColor} colors={this.state.colors} />
           {this.state.projects.length > 0 && (
             <Sidebar
               projects={this.state.projects}
