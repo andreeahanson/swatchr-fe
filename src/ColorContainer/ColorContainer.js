@@ -14,7 +14,6 @@ const ColorContainer = props => {
   };
   return (
     <main className="color-container">
-      <h2>ColorContainer</h2>
       {displayColors()}
     </main>
   );

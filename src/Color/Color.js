@@ -17,7 +17,7 @@ class Color extends Component {
 
     return (
       <article style={{ "backgroundColor": `#${this.props.hex}` }}>
-        <p>COLOR!!!!!!!</p>
+        <p>#{this.props.hex}</p>
         <button className={classString} onClick={() => this.toggleLock}>
           {lockedStatus}
         </button>

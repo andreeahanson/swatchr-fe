@@ -61,7 +61,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <h1>App</h1>
+        <h1>Swatchr</h1>
         <ColorContainer colors={this.state.colors}/>
         {this.state.projects.length > 0 && <Sidebar projects={this.state.projects} returnColors={this.returnColors} returnProjectWithPalettes={this.returnProjectWithPalettes}/>}
       </>
