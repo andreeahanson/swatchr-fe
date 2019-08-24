@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import ColorContainer from "../ColorContainer/ColorContainer";
-import { fetchProjects, fetchOneProject } from "../apiCalls";
+import { fetchProjects, fetchOneProject, postProject, postPalette } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
 
@@ -14,10 +14,20 @@ class App extends Component {
 
   async componentDidMount() {
     this.state.colors.length === 0 && this.createScheme();
-    const projects = await fetchProjects(
+    const rawProjects = await fetchProjects(
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
+    const projects = this.cleanProjects(rawProjects)
     this.setState({ projects });
+  }
+
+  cleanProjects = (projects) => {
+    return projects.map(project => {
+      return {
+        id: project.id,
+        name: project.name
+      }
+    })
   }
 
   returnProjectWithPalettes = async id => {
@@ -26,6 +36,18 @@ class App extends Component {
     );
     return projectWithPalettes;
   };
+
+  postFetch = async (object, id) => {
+    if(object.project) {
+      const newProjectId = await postProject("http://swatchr-be.herokuapp.com/api/v1/projects", object)
+      const projects = [ ...this.state.projects, { id: newProjectId.id[0], name: object.project.name } ]
+      this.setState({ projects });
+    } else {
+      const newPaletteId = await postPalette(`http://swatchr-be.herokuapp.com/api/v1/projects/${id}/palettes`, object)
+      const palette = { id: newPaletteId, name: object.palette.name }
+      return palette;
+    }
+  } 
 
   cleanColors = colors => {
     return colors.map(color => {
@@ -130,6 +152,7 @@ class App extends Component {
               projects={this.state.projects}
               returnColors={this.returnColors}
               returnProjectWithPalettes={this.returnProjectWithPalettes}
+              postFetch={this.postFetch}
             />
           )}
         </div>

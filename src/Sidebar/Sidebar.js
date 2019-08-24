@@ -40,11 +40,11 @@ class Sidebar extends Component {
   };
 
   selectProject = async e => {
-    const projectId = parseInt(e.nativeEvent.target.selectedOptions[0].id);
+    const projectId = e.nativeEvent.target.selectedOptions[0].id;
     const projectValue = e.nativeEvent.target.selectedOptions[0].value;
     let currentProject;
-    if (projectId === 0) {
-      currentProject = {};
+    if (projectId === -1) {
+      currentProject = { id: -1 };
     } else {
       currentProject = await this.props.returnProjectWithPalettes(projectId);
     }
@@ -73,7 +73,7 @@ class Sidebar extends Component {
                 onChange={this.selectProject}
                 value={this.state.selectedProject}
               >
-                <option value="Select Project" id={0}>
+                <option value="Select Project" id={-1}>
                   Select Project
                 </option>
                 {this.props.projects.length && this.displayOptions()}
@@ -83,12 +83,18 @@ class Sidebar extends Component {
               imageAlt="plus icon"
               imagePath="./plus.png"
               label="Add project"
+              postFetch = {this.props.postFetch}
+              keyName="project"
+              currentProjectId={this.state.currentProject.id}
             />
-            <AddForm
+            {this.state.currentProject.id > -1 && <AddForm
               imageAlt="save icon"
               imagePath="./save.png"
               label="Save palette"
-            />
+              postFetch = {this.props.postFetch}
+              keyName="palette"
+              currentProjectId={this.state.currentProject.id}
+            />}
             <section className="palettes-section">
               {this.state.currentProject.palettes && this.displayPalettes()}
             </section>
