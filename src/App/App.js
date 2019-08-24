@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Sidebar from '../Sidebar/Sidebar';
-import ColorContainer from '../ColorContainer/ColorContainer';
+import Sidebar from "../Sidebar/Sidebar";
+import ColorContainer from "../ColorContainer/ColorContainer";
 import { fetchProjects, fetchOneProject } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
@@ -8,7 +8,8 @@ const ColorScheme = require("color-scheme");
 class App extends Component {
   state = {
     projects: [],
-    colors: []
+    colors: [],
+    schemeHover: false
   };
 
   async componentDidMount() {
@@ -87,11 +88,19 @@ class App extends Component {
         return newColor;
       }
     });
-  }
+  };
 
   handleClick = e => {
     e.preventDefault();
     this.createScheme();
+  };
+
+  onMouseOver = () => {
+    this.setState({ schemeHover: true });
+  };
+
+  onMouseOut = () => {
+    this.setState({ schemeHover: false });
   };
 
   render() {
@@ -99,10 +108,23 @@ class App extends Component {
       <main className="app">
         <header className="app-header">
           <h1>Swatchr</h1>
-          <button onClick={this.handleClick}>Generate Scheme >></button>
+          <div
+            className="generate-scheme"
+            onClick={this.handleClick}
+            onMouseOver={this.onMouseOver}
+            onMouseOut={this.onMouseOut}
+          >
+            Generate scheme
+            {this.state.schemeHover && (
+              <img src="./down.png" alt="down arrow"/>
+            )}
+          </div>
         </header>
         <div className="colors-sidebar-wrapper">
-          <ColorContainer toggleLockedColor={this.toggleLockedColor} colors={this.state.colors} />
+          <ColorContainer
+            toggleLockedColor={this.toggleLockedColor}
+            colors={this.state.colors}
+          />
           {this.state.projects.length > 0 && (
             <Sidebar
               projects={this.state.projects}

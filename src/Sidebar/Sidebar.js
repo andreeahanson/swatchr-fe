@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Palette from "../Palette/Palette";
+import AddForm from "../AddForm/AddForm";
 import "./Sidebar.scss";
 
 class Sidebar extends Component {
@@ -53,93 +54,46 @@ class Sidebar extends Component {
     });
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  toggleInput = e => {
-    e.preventDefault();
-    if (e.target.name === "paletteBtn") {
-      this.setState({ addPalette: !this.state.addPalette });
-    } else {
-      this.setState({ addProject: !this.state.addProject });
-    }
-  };
-
   toggleNav = () => {
-    this.setState({navDisplay : !this.state.navDisplay})
-  }
+    this.setState({ navDisplay: !this.state.navDisplay });
+  };
 
   render() {
     return (
       <div className="sidebar-wrapper">
         <div className="sidebar-arrow" onClick={this.toggleNav}>
-          {!this.state.navDisplay && <img src="./left.png" alt="left-caret"/>}
-          {this.state.navDisplay && <img src="./right.png" alt="right-caret"/>}
+          {!this.state.navDisplay && <img src="./left.png" alt="left-caret" />}
+          {this.state.navDisplay && <img src="./right.png" alt="right-caret" />}
         </div>
-        {this.state.navDisplay && 
-        <nav className="sidebar">
-          <form className="projects-form">
-            <select
-              className="projects-select"
-              onChange={this.selectProject}
-              value={this.state.selectedProject}
-            >
-              <option value="Select Project" id={0}>
-                Select Project
-              </option>
-              {this.props.projects.length && this.displayOptions()}
-            </select>
-            <div 
-            className="sidebar-add-container add-project"
-            name="projectBtn"
-            onClick={this.toggleInput}
-            >
-              <img
-                className="add-proj-btn"
-                src='./plus.png'
-                alt='plus-icon'
-                placeholder='Add Project'
-              />
-              {!this.state.addProject && <p>Add Project</p>}
-            {this.state.addProject && (
-              <input
-                name="projectName"
-                type="text"
-                value={this.state.projectName}
-                onChange={this.handleChange}
-                className="add-proj-input input-animation"
-              />
-            )}
-            </div>
-          </form>
-          <form className="palettes-form">
-          <div 
-            className="sidebar-add-container add-project"
-            name="paletteBtn"
-            onClick={this.toggleInput}
-          >
-            <img
-                  className="save-palette-btn"
-                  src='./save.png'
-                  alt='save-icon'
-                />
-              {!this.state.addPalette && <p>Save Palette</p>}
-            {this.state.addPalette && (
-              <input
-                name="paletteName"
-                type="text"
-                value={this.state.paletteName}
-                onChange={this.handleChange}
-                className="add-palette-input input-animation"
-              />
-            )}
-          </div>
-          </form>
-          <section className="palettes-section">
-            {this.state.currentProject.palettes && this.displayPalettes()}
-          </section>
-        </nav>}
+        {this.state.navDisplay && (
+          <nav className="sidebar">
+            <form className="projects-form">
+              <select
+                className="projects-select"
+                onChange={this.selectProject}
+                value={this.state.selectedProject}
+              >
+                <option value="Select Project" id={0}>
+                  Select Project
+                </option>
+                {this.props.projects.length && this.displayOptions()}
+              </select>
+            </form>
+            <AddForm
+              imageAlt="plus icon"
+              imagePath="./plus.png"
+              label="Add project"
+            />
+            <AddForm
+              imageAlt="save icon"
+              imagePath="./save.png"
+              label="Save palette"
+            />
+            <section className="palettes-section">
+              {this.state.currentProject.palettes && this.displayPalettes()}
+            </section>
+          </nav>
+        )}
       </div>
     );
   }
