@@ -8,7 +8,8 @@ class Sidebar extends Component {
     selectedProject: "",
     projectSelect: "",
     currentProject: {},
-    navDisplay: false
+    navDisplay: false,
+    currentProjectName: ""
   };
 
   displayPalettes = () => {
@@ -56,6 +57,11 @@ class Sidebar extends Component {
   toggleNav = () => {
     this.setState({ navDisplay: !this.state.navDisplay });
   };
+  
+  handleDelete = e => {
+    e.preventDefault();
+    this.props.deleteFetchProject(this.state.currentProject.id);
+  }
 
   render() {
     return (
@@ -97,6 +103,23 @@ class Sidebar extends Component {
                 currentProjectId={this.state.currentProject.id}
                 colors={this.props.colors}
               />
+            )}
+            {this.state.currentProject && (
+              <header>
+                <h3>{this.state.currentProject.name}</h3>
+                <button onClick={this.toggleEditName}>Edit</button>
+                {this.state.displayInput && (
+                  <input
+                    onKeyDown={this.handleKeyDown}
+                    type="text"
+                    value={this.state.currentProjectName}
+                    name="currentProjectName"
+                    onChange={this.handleChange}
+                    className="edit-project-input"
+                  />
+                )}
+                <button onClick={this.handleDelete}>X</button>
+              </header>
             )}
             <section className="palettes-section">
               {this.state.currentProject.palettes && this.displayPalettes()}

@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import ColorContainer from "../ColorContainer/ColorContainer";
-import { fetchProjects, fetchOneProject, postProject, postPalette, deletePalette, patchPalette } from "../apiCalls";
+import {
+  fetchProjects,
+  fetchOneProject,
+  postProject,
+  postPalette,
+  deletePalette,
+  deleteProject,
+  patchPalette,
+} from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
 
@@ -40,6 +48,12 @@ class App extends Component {
   deleteFetchPalette = async id => {
     await deletePalette(
       `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`
+    );
+  };
+
+  deleteFetchProject = async id => {
+    await deleteProject(
+      `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
     );
   };
 
@@ -179,6 +193,7 @@ class App extends Component {
               colors={this.state.colors}
               deleteFetchPalette={this.deleteFetchPalette}
               patchFetchPalette={this.patchFetchPalette}
+              deleteFetchProject={this.deleteFetchProject}
             />
           )}
         </div>
