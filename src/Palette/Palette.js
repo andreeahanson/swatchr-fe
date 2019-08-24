@@ -32,6 +32,11 @@ class Palette extends Component {
     this.setState({ displayInput: !this.state.displayInput });
   };
 
+  handleDelete = e => {
+    e.preventDefault();
+    this.props.deleteFetchPalette(this.props.id);
+  }
+
   render() {
     return (
       <section className="palette">
@@ -39,7 +44,7 @@ class Palette extends Component {
           <h4>{this.props.name}</h4>
           <button onClick={this.toggleEditName}>Edit</button>
           {this.state.displayInput && <input type="text" value={this.state.name} name="name" onChange={this.handleChange} className="edit-palette-input" />}
-          <button>X</button>
+          <button onClick={this.handleDelete}>X</button>
         </div>
         <div onClick={this.handleClick} className="palette-colors">
           {this.displayColors()}

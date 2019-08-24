@@ -17,10 +17,12 @@ class Sidebar extends Component {
       const colors = [color1, color2, color3, color4, color5];
       return (
         <Palette
+          id={palette.id}
           key={i}
           colors={colors}
           name={name}
           returnColors={this.props.returnColors}
+          deleteFetchPalette={this.props.deleteFetchPalette}
         />
       );
     });
