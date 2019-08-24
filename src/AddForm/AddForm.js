@@ -18,9 +18,15 @@ class AddForm extends Component {
   handleSubmit = e => {
     if(e.keyCode === 13) {
       e.preventDefault();
-      this.props.postFetch()
+      this.props.postFetch({ [this.props.keyName] : { name: this.state.name } }, this.props.currentProjectId)
+      this.clearInput();
     } 
+  }
 
+  clearInput = () => {
+    this.setState({
+      name: ""
+    })
   }
 
   render() {

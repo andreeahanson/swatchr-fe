@@ -40,7 +40,7 @@ class Sidebar extends Component {
   };
 
   selectProject = async e => {
-    const projectId = parseInt(e.nativeEvent.target.selectedOptions[0].id);
+    const projectId = e.nativeEvent.target.selectedOptions[0].id;
     const projectValue = e.nativeEvent.target.selectedOptions[0].value;
     let currentProject;
     if (projectId === -1) {
@@ -85,6 +85,7 @@ class Sidebar extends Component {
               label="Add project"
               postFetch = {this.props.postFetch}
               keyName="project"
+              currentProjectId={this.state.currentProject.id}
             />
             {this.state.currentProject.id > -1 && <AddForm
               imageAlt="save icon"
@@ -92,6 +93,7 @@ class Sidebar extends Component {
               label="Save palette"
               postFetch = {this.props.postFetch}
               keyName="palette"
+              currentProjectId={this.state.currentProject.id}
             />}
             <section className="palettes-section">
               {this.state.currentProject.palettes && this.displayPalettes()}

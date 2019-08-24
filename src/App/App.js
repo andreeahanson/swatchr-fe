@@ -40,7 +40,7 @@ class App extends Component {
   postFetch = async (object, id) => {
     if(object.project) {
       const newProjectId = await postProject("http://swatchr-be.herokuapp.com/api/v1/projects", object)
-      const projects = [ ...this.state.projects, { id: newProjectId, name: object.project.name } ]
+      const projects = [ ...this.state.projects, { id: newProjectId.id[0], name: object.project.name } ]
       this.setState({ projects });
     } else {
       const newPaletteId = await postPalette(`http://swatchr-be.herokuapp.com/api/v1/projects/${id}/palettes`, object)
