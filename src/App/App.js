@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import ColorContainer from "../ColorContainer/ColorContainer";
-import { fetchProjects, fetchOneProject, postProject, postPalette, deletePalette } from "../apiCalls";
+import { fetchProjects, fetchOneProject, postProject, postPalette, deletePalette, patchPalette } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
 
@@ -17,18 +17,18 @@ class App extends Component {
     const rawProjects = await fetchProjects(
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
-    const projects = this.cleanProjects(rawProjects)
+    const projects = this.cleanProjects(rawProjects);
     this.setState({ projects });
   }
 
-  cleanProjects = (projects) => {
+  cleanProjects = projects => {
     return projects.map(project => {
       return {
         id: project.id,
         name: project.name
-      }
-    })
-  }
+      };
+    });
+  };
 
   returnProjectWithPalettes = async id => {
     const projectWithPalettes = await fetchOneProject(
@@ -41,20 +41,36 @@ class App extends Component {
     await deletePalette(
       `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`
     );
-  }
+  };
+
+  patchFetchPalette = async (name, id) => {
+    await patchPalette(
+      `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`,
+      { name }
+    );
+  };
 
   postFetch = async (object, id) => {
-    if(object.project) {
-      const projectObject = { name: object.project.name }
-      const newProjectId = await postProject("http://swatchr-be.herokuapp.com/api/v1/projects", projectObject)
-      const projects = [ ...this.state.projects, { id: newProjectId.id[0], name: object.project.name } ]
+    if (object.project) {
+      const projectObject = { name: object.project.name };
+      const newProjectId = await postProject(
+        "http://swatchr-be.herokuapp.com/api/v1/projects",
+        projectObject
+      );
+      const projects = [
+        ...this.state.projects,
+        { id: newProjectId.id[0], name: object.project.name }
+      ];
       this.setState({ projects });
     } else {
-      const newPaletteId = await postPalette(`http://swatchr-be.herokuapp.com/api/v1/projects/${id}/palettes`, object)
-      const palette = { id: newPaletteId, name: object.palette.name }
+      const newPaletteId = await postPalette(
+        `http://swatchr-be.herokuapp.com/api/v1/projects/${id}/palettes`,
+        object
+      );
+      const palette = { id: newPaletteId, name: object.palette.name };
       return palette;
     }
-  } 
+  };
 
   cleanColors = colors => {
     return colors.map(color => {
@@ -145,7 +161,7 @@ class App extends Component {
           >
             Generate scheme
             {this.state.schemeHover && (
-              <img src="./down.png" alt="down arrow"/>
+              <img src="./down.png" alt="down arrow" />
             )}
           </div>
         </header>
@@ -162,6 +178,7 @@ class App extends Component {
               postFetch={this.postFetch}
               colors={this.state.colors}
               deleteFetchPalette={this.deleteFetchPalette}
+              patchFetchPalette={this.patchFetchPalette}
             />
           )}
         </div>

@@ -23,6 +23,7 @@ class Sidebar extends Component {
           name={name}
           returnColors={this.props.returnColors}
           deleteFetchPalette={this.props.deleteFetchPalette}
+          patchFetchPalette={this.props.patchFetchPalette}
         />
       );
     });
