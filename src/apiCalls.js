@@ -93,4 +93,19 @@ export const postProject = async (url, object) => {
   }
 }
 
+export const deletePalette = async (url) => {
+  const options = {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  };
+  try {
+    const response = await fetch(url, options)
+    if(!response.ok){
+      throw new Error("Could not fetch palettes")
+    }
+  } catch(error) {
+    throw new Error({error, message: "There was an error with the server"})
+  }
+}
+
 
