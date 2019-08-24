@@ -14,6 +14,12 @@ class Sidebar extends Component {
     displayInput: false
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentProject !== this.props.currentProject) {
+      this.setState({ currentProject: nextProps.currentProject });
+    }
+  }
+
   displayPalettes = () => {
     return this.state.currentProject.palettes.map((palette, i) => {
       const { color1, color2, color3, color4, color5, name } = palette;
@@ -44,16 +50,13 @@ class Sidebar extends Component {
   selectProject = async e => {
     const projectId = e.nativeEvent.target.selectedOptions[0].id;
     const projectValue = e.nativeEvent.target.selectedOptions[0].value;
-    let currentProject;
     if (parseInt(projectId) === -1) {
-      currentProject = { id: -1 };
+      const currentProject = { id: -1 };
+      this.setState({ currentProject });
     } else {
-      currentProject = await this.props.returnProjectWithPalettes(projectId);
+      await this.props.returnProjectWithPalettes(projectId);
     }
-    this.setState({
-      selectedProject: projectValue,
-      currentProject
-    });
+    this.setState({ selectedProject: projectValue });
   };
 
   toggleNav = () => {
@@ -82,7 +85,7 @@ class Sidebar extends Component {
       e.preventDefault();
       this.handleEdit();
       this.clearForm();
-      this.setState({ displayInput: false })
+      this.setState({ displayInput: false });
     }
   };
 
@@ -94,6 +97,8 @@ class Sidebar extends Component {
   };
 
   render() {
+    console.log("state", this.state.currentProject);
+    console.log("props", this.props.currentProject);
     return (
       <div className="sidebar-wrapper">
         <div className="sidebar-arrow" onClick={this.toggleNav}>
@@ -122,7 +127,7 @@ class Sidebar extends Component {
             {this.state.currentProject.id > -1 && (
               <AddPaletteForm
                 postFetchPalette={this.props.postFetchPalette}
-                currentProjectId={this.state.currentProject.id}
+                currentProject={this.state.currentProject}
                 colors={this.props.colors}
               />
             )}

@@ -18,11 +18,11 @@ class AddPaletteForm extends Component {
   handleSubmit = e => {
     if (e.keyCode === 13) {
       e.preventDefault();
-      const id = this.props.currentProjectId;
+      const currentProject = this.props.currentProject;
       const newPalette = {
         palette: {
           name: this.state.name,
-          project_id: id,
+          project_id: currentProject.id,
           color1: this.props.colors[0].hex,
           color2: this.props.colors[1].hex,
           color3: this.props.colors[2].hex,
@@ -30,7 +30,7 @@ class AddPaletteForm extends Component {
           color5: this.props.colors[4].hex
         }
       };
-      this.props.postFetchPalette(newPalette, id);
+      this.props.postFetchPalette(newPalette, currentProject);
       this.clearInput();
     }
   };

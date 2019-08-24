@@ -18,7 +18,8 @@ class App extends Component {
   state = {
     projects: [],
     colors: [],
-    schemeHover: false
+    schemeHover: false,
+    currentProject: {}
   };
 
   async componentDidMount() {
@@ -40,10 +41,10 @@ class App extends Component {
   };
 
   returnProjectWithPalettes = async id => {
-    const projectWithPalettes = await fetchOneProject(
+    const currentProject = await fetchOneProject(
       `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
     );
-    return projectWithPalettes;
+    this.setState({ currentProject })
   };
 
   deleteFetchPalette = async id => {
@@ -77,20 +78,24 @@ class App extends Component {
         "http://swatchr-be.herokuapp.com/api/v1/projects",
         newProject
       );
+      const project = {
+        id: newProjectId.id[0],
+        name: newProject.project.name
+      };
       const projects = [
         ...this.state.projects,
-        { id: newProjectId.id[0], name: newProject.project.name }
+        project
       ];
+      const currentProject = this.returnProjectWithPalettes(newProjectId.id[0]);
       this.setState({ projects });
   }
 
-  postFetchPalette = async (newPalette, id) => {
-      const newPaletteId = await postPalette(
-        `http://swatchr-be.herokuapp.com/api/v1/projects/${id}/palettes`,
+  postFetchPalette = async (newPalette, project) => {
+      await postPalette(
+        `http://swatchr-be.herokuapp.com/api/v1/projects/${project.id}/palettes`,
         newPalette
       );
-      const palette = { id: newPaletteId, name: newPalette.palette.name };
-      return palette;
+      this.returnProjectWithPalettes(project.id);
   };
 
   cleanColors = colors => {
@@ -203,6 +208,7 @@ class App extends Component {
               patchFetchPalette={this.patchFetchPalette}
               deleteFetchProject={this.deleteFetchProject}
               patchFetchProject={this.patchFetchProject}
+              currentProject={this.state.currentProject}
             />
           )}
         </div>
