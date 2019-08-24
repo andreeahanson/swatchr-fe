@@ -18,7 +18,19 @@ class AddForm extends Component {
   handleSubmit = e => {
     if(e.keyCode === 13) {
       e.preventDefault();
-      this.props.postFetch({ [this.props.keyName] : { name: this.state.name } }, this.props.currentProjectId)
+      const id = this.props.currentProjectId;
+      const payload = {
+        [this.props.keyName]: {
+          name: this.state.name,
+          project_id: id,
+          color1: this.props.colors[0].hex,
+          color2: this.props.colors[1].hex,
+          color3: this.props.colors[2].hex,
+          color4: this.props.colors[3].hex,
+          color5: this.props.colors[4].hex
+        }
+      };
+      this.props.postFetch(payload, id);
       this.clearInput();
     } 
   }

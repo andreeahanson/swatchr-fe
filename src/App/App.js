@@ -39,7 +39,8 @@ class App extends Component {
 
   postFetch = async (object, id) => {
     if(object.project) {
-      const newProjectId = await postProject("http://swatchr-be.herokuapp.com/api/v1/projects", object)
+      const projectObject = { name: object.project.name }
+      const newProjectId = await postProject("http://swatchr-be.herokuapp.com/api/v1/projects", projectObject)
       const projects = [ ...this.state.projects, { id: newProjectId.id[0], name: object.project.name } ]
       this.setState({ projects });
     } else {
@@ -153,6 +154,7 @@ class App extends Component {
               returnColors={this.returnColors}
               returnProjectWithPalettes={this.returnProjectWithPalettes}
               postFetch={this.postFetch}
+              colors={this.state.colors}
             />
           )}
         </div>

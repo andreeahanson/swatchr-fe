@@ -6,11 +6,7 @@ import "./Sidebar.scss";
 class Sidebar extends Component {
   state = {
     selectedProject: "",
-    addProject: false,
-    projectName: "",
     projectSelect: "",
-    addPalette: false,
-    paletteName: "",
     currentProject: {},
     navDisplay: false
   };
@@ -83,18 +79,22 @@ class Sidebar extends Component {
               imageAlt="plus icon"
               imagePath="./plus.png"
               label="Add project"
-              postFetch = {this.props.postFetch}
+              postFetch={this.props.postFetch}
               keyName="project"
               currentProjectId={this.state.currentProject.id}
+              colors={this.props.colors}
             />
-            {this.state.currentProject.id > -1 && <AddForm
-              imageAlt="save icon"
-              imagePath="./save.png"
-              label="Save palette"
-              postFetch = {this.props.postFetch}
-              keyName="palette"
-              currentProjectId={this.state.currentProject.id}
-            />}
+            {this.state.currentProject.id > -1 && (
+              <AddForm
+                imageAlt="save icon"
+                imagePath="./save.png"
+                label="Save palette"
+                postFetch={this.props.postFetch}
+                keyName="palette"
+                currentProjectId={this.state.currentProject.id}
+                colors={this.props.colors}
+              />
+            )}
             <section className="palettes-section">
               {this.state.currentProject.palettes && this.displayPalettes()}
             </section>
