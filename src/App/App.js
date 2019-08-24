@@ -9,6 +9,7 @@ import {
   deletePalette,
   deleteProject,
   patchPalette,
+  patchProject
 } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
@@ -60,6 +61,13 @@ class App extends Component {
   patchFetchPalette = async (name, id) => {
     await patchPalette(
       `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`,
+      { name }
+    );
+  };
+
+  patchFetchProject = async (name, id) => {
+    await patchProject(
+      `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`,
       { name }
     );
   };
@@ -194,6 +202,7 @@ class App extends Component {
               deleteFetchPalette={this.deleteFetchPalette}
               patchFetchPalette={this.patchFetchPalette}
               deleteFetchProject={this.deleteFetchProject}
+              patchFetchProject={this.patchFetchProject}
             />
           )}
         </div>
