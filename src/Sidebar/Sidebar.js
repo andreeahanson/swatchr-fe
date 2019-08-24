@@ -5,11 +5,12 @@ import "./Sidebar.scss";
 
 class Sidebar extends Component {
   state = {
-    selectedProject: "",
+    selectedProject: "Select Project",
     projectSelect: "",
     currentProject: {},
     navDisplay: false,
-    currentProjectName: ""
+    currentProjectName: "",
+    displayInput: false
   };
 
   displayPalettes = () => {
@@ -43,7 +44,7 @@ class Sidebar extends Component {
     const projectId = e.nativeEvent.target.selectedOptions[0].id;
     const projectValue = e.nativeEvent.target.selectedOptions[0].value;
     let currentProject;
-    if (projectId === -1) {
+    if (parseInt(projectId) === -1) {
       currentProject = { id: -1 };
     } else {
       currentProject = await this.props.returnProjectWithPalettes(projectId);
@@ -57,11 +58,39 @@ class Sidebar extends Component {
   toggleNav = () => {
     this.setState({ navDisplay: !this.state.navDisplay });
   };
-  
+
+  handleChange = e => {
+    this.setState({ currentProjectName: e.target.value });
+  };
+
+  clearForm = () => {
+    this.setState({ currentProjectName: "" });
+  };
+
   handleDelete = e => {
     e.preventDefault();
     this.props.deleteFetchProject(this.state.currentProject.id);
-  }
+  };
+
+  toggleEditName = () => {
+    this.setState({ displayInput: !this.state.displayInput });
+  };
+
+  handleKeyDown = e => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      this.handleEdit();
+      this.clearForm();
+      this.setState({ displayInput: false })
+    }
+  };
+
+  handleEdit = () => {
+    this.props.patchFetchProject(
+      this.state.currentProjectName,
+      this.state.currentProject.id
+    );
+  };
 
   render() {
     return (
@@ -104,7 +133,7 @@ class Sidebar extends Component {
                 colors={this.props.colors}
               />
             )}
-            {this.state.currentProject && (
+            {this.state.selectedProject !== "Select Project" && (
               <header>
                 <h3>{this.state.currentProject.name}</h3>
                 <button onClick={this.toggleEditName}>Edit</button>

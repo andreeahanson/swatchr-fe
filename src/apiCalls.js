@@ -141,3 +141,22 @@ export const patchPalette = async (url, object) => {
     throw new Error({error, message: "There was an error with the server"})
   }
 }
+
+export const patchProject = async (url, object) => {
+  try {
+    const options = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(object)
+    }
+    const response = await fetch(url, options)
+    if (!response.ok) {
+      throw new Error("Could not edit name of project")
+    }
+    const project = await response.json()
+    return project;
+  }
+  catch (error) {
+    throw new Error({error, message: "There was an error with the server"})
+  }
+}
