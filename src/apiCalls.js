@@ -108,4 +108,21 @@ export const deletePalette = async (url) => {
   }
 }
 
-
+export const patchPalette = async (url, object) => {
+  try {
+    const options = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(object)
+    }
+    const response = await fetch(url, options)
+    if (!response.ok) {
+      throw new Error("Could not edit name of palette")
+    }
+    const palette = await response.json()
+    return palette;
+  }
+  catch (error) {
+    throw new Error({error, message: "There was an error with the server"})
+  }
+}
