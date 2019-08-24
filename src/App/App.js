@@ -41,9 +41,9 @@ class App extends Component {
     if(object.project) {
       const newProjectId = await postProject("http://swatchr-be.herokuapp.com/api/v1/projects", object)
       const projects = [ ...this.state.projects, { id: newProjectId, name: object.project.name } ]
-      this.setState({ projects })
+      this.setState({ projects });
     } else {
-      const newPaletteId = await postPalette("http://swatchr-be.herokuapp.com/api/v1/projects/:id/palettes", object)
+      const newPaletteId = await postPalette(`http://swatchr-be.herokuapp.com/api/v1/projects/${id}/palettes`, object)
       const palette = { id: newPaletteId, name: object.palette.name }
       return palette;
     }
@@ -152,6 +152,7 @@ class App extends Component {
               projects={this.state.projects}
               returnColors={this.returnColors}
               returnProjectWithPalettes={this.returnProjectWithPalettes}
+              postFetch={this.postFetch}
             />
           )}
         </div>

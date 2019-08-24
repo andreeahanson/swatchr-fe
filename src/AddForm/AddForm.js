@@ -15,6 +15,14 @@ class AddForm extends Component {
     this.setState({ name: e.target.value });
   }
 
+  handleSubmit = e => {
+    if(e.keyCode === 13) {
+      e.preventDefault();
+      this.props.postFetch()
+    } 
+
+  }
+
   render() {
     return (
       <div
@@ -32,6 +40,7 @@ class AddForm extends Component {
             value={this.state.name}
             onChange={this.handleChange}
             className="input-animation"
+            onKeyDown={this.handleSubmit}
           />
         )}
       </div>
