@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900');
+
 
 @mixin flexCol {
   display: flex;
@@ -12,15 +14,27 @@
   @include flexCol;
 }
 
+@keyframes slide {
+    0% { width: 0vw; }
+    100% { width: 15vw; }
+}
+
 .sidebar {
   padding: 8px;
   width: 15vw;
+  animation: slide .3s;
+  .palettes-section {
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 
 .projects-form {
+  margin-top: 20px;
   width: 100%;
 
   select {
+    font-family: 'Lato', sans-serif;
     width: 90%;
     height: 35px;
     border: 1px solid gray;
@@ -45,6 +59,9 @@
   border-radius: 10px 0px 0px 10px;
   opacity: .5;
   padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   img{
     height: 40px;

@@ -54,22 +54,9 @@ class Sidebar extends Component {
     });
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  toggleInput = e => {
-    e.preventDefault();
-    if (e.target.name === "paletteBtn") {
-      this.setState({ addPalette: !this.state.addPalette });
-    } else {
-      this.setState({ addProject: !this.state.addProject });
-    }
-  };
-
   toggleNav = () => {
-    this.setState({navDisplay : !this.state.navDisplay})
-  }
+    this.setState({ navDisplay: !this.state.navDisplay });
+  };
 
   render() {
     return (
@@ -95,37 +82,13 @@ class Sidebar extends Component {
             <AddForm
               imageAlt="plus icon"
               imagePath="./plus.png"
-              label="Add Project"
+              label="Add project"
             />
             <AddForm
               imageAlt="save icon"
               imagePath="./save.png"
-              label="Save Palette"
+              label="Save palette"
             />
-            {/* Render AddForm for Projects */}
-            {/* <form className="palettes-form">
-          <div 
-            className="sidebar-add-container add-project"
-            name="paletteBtn"
-            onClick={this.toggleInput}
-          >
-            <img
-                  className="save-palette-btn"
-                  src='./save.png'
-                  alt='save-icon'
-                />
-              {!this.state.addPalette && <p>Save Palette</p>}
-            {this.state.addPalette && (
-              <input
-                name="paletteName"
-                type="text"
-                value={this.state.paletteName}
-                onChange={this.handleChange}
-                className="add-palette-input input-animation"
-              />
-            )}
-          </div>
-          </form> */}
             <section className="palettes-section">
               {this.state.currentProject.palettes && this.displayPalettes()}
             </section>

@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
 
+@keyframes arrowBounce {
+  0% { opacity: .3; margin-top: 7; }
+  100% { opacity: .8; margin-top: 2px; }
+}
+
 .app-header {
   width: 100vw;
   height: 10vh;
@@ -7,25 +12,34 @@
   justify-content: space-between;
   align-items: center;
   padding: 5px;
+  border-bottom: 1px solid lightgray;
   h1 {
     font-size: 3rem;
     font-weight: 100;
     font-family: 'Open Sans Condensed', sans-serif;
-    margin: 0px 10px;
+    margin: 0px 10px 10px 5px;
   }
-  button {
+  .generate-scheme {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-family: sans-serif;
     font-size: 1.2rem;
     font-weight: 100;
     outline: none;
     border: none;
-    width: 30%;
     height: 90%;
-    margin-right: 39%;
-    // align-self: flex-start;
+    margin-right: 45%;
+    margin-top: 55px;
+    img {
+      margin-top: 7px;
+      animation: arrowBounce .5s steps(10) infinite alternate;
+      width: 50px;
+      height: 15px;
+    }
     &:hover {
       cursor: pointer;
-      color: red;
+      opacity: .6;
     }
   }
 }
