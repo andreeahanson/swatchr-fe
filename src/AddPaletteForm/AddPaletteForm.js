@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./AddForm.scss";
+import "./AddPaletteForm.scss";
 
-class AddForm extends Component {
+class AddPaletteForm extends Component {
   state = {
     name: "",
     displayInput: false
@@ -9,18 +9,18 @@ class AddForm extends Component {
 
   toggleInput = () => {
     this.setState({ displayInput: !this.state.displayInput });
-  }
+  };
 
   handleChange = e => {
     this.setState({ name: e.target.value });
-  }
+  };
 
   handleSubmit = e => {
-    if(e.keyCode === 13) {
+    if (e.keyCode === 13) {
       e.preventDefault();
       const id = this.props.currentProjectId;
-      const payload = {
-        [this.props.keyName]: {
+      const newPalette = {
+        palette: {
           name: this.state.name,
           project_id: id,
           color1: this.props.colors[0].hex,
@@ -30,28 +30,26 @@ class AddForm extends Component {
           color5: this.props.colors[4].hex
         }
       };
-      this.props.postFetch(payload, id);
+      this.props.postFetchPalette(newPalette, id);
       this.clearInput();
-    } 
-  }
+    }
+  };
 
   clearInput = () => {
     this.setState({
       name: ""
-    })
-  }
+    });
+  };
 
   render() {
     return (
-      <div
-        className="sidebar-add-container"
-        >
+      <div className="sidebar-add-container">
         <img
           onClick={this.toggleInput}
-          src={this.props.imagePath}
-          alt={this.props.imageAlt}
+          src="./save.png"
+          alt="save icon"
         />
-        {!this.state.displayInput && <p>{this.props.label}</p>}
+        {!this.state.displayInput && <p>Save palette</p>}
         {this.state.displayInput && (
           <input
             type="text"
@@ -66,4 +64,4 @@ class AddForm extends Component {
   }
 }
 
-export default AddForm;
+export default AddPaletteForm;

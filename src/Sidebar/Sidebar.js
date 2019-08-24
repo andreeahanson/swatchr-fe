@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Palette from "../Palette/Palette";
-import AddForm from "../AddForm/AddForm";
+import AddProjectForm from "../AddProjectForm/AddProjectForm";
+import AddPaletteForm from "../AddPaletteForm/AddPaletteForm";
 import "./Sidebar.scss";
 
 class Sidebar extends Component {
@@ -113,22 +114,14 @@ class Sidebar extends Component {
                 {this.props.projects.length && this.displayOptions()}
               </select>
             </form>
-            <AddForm
-              imageAlt="plus icon"
-              imagePath="./plus.png"
-              label="Add project"
-              postFetch={this.props.postFetch}
-              keyName="project"
+            <AddProjectForm
+              postFetchProject={this.props.postFetchProject}
               currentProjectId={this.state.currentProject.id}
               colors={this.props.colors}
             />
             {this.state.currentProject.id > -1 && (
-              <AddForm
-                imageAlt="save icon"
-                imagePath="./save.png"
-                label="Save palette"
-                postFetch={this.props.postFetch}
-                keyName="palette"
+              <AddPaletteForm
+                postFetchPalette={this.props.postFetchPalette}
                 currentProjectId={this.state.currentProject.id}
                 colors={this.props.colors}
               />
