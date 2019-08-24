@@ -74,4 +74,23 @@ export const postPalette = async (url, object) => {
   }
 }
 
+export const postProject = async (url, object) => {
+  try {
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(object)
+    }
+    const response = await fetch(url, options)
+    if (!response.ok) {
+      throw new Error("Could not add new project")
+    }
+    const project = await response.json()
+    return project;
+  }
+  catch (error) {
+    throw new Error({error, message: "There was an error with the server"})
+  }
+}
+
 
