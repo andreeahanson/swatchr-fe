@@ -27,12 +27,14 @@ class Sidebar extends Component {
       return (
         <Palette
           id={palette.id}
+          projectId={this.state.currentProject.id}
           key={i}
           colors={colors}
           name={name}
           returnColors={this.props.returnColors}
           deleteFetchPalette={this.props.deleteFetchPalette}
           patchFetchPalette={this.props.patchFetchPalette}
+          returnProjectWithPalettes={this.props.returnProjectWithPalettes}
         />
       );
     });
@@ -97,8 +99,6 @@ class Sidebar extends Component {
   };
 
   render() {
-    console.log("state", this.state.currentProject);
-    console.log("props", this.props.currentProject);
     return (
       <div className="sidebar-wrapper">
         <div className="sidebar-arrow" onClick={this.toggleNav}>
