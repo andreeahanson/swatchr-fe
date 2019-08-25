@@ -34,14 +34,21 @@ describe('AddPaletteForm', () => {
     expect(wrapper.state('displayInput')).toEqual(true);
   });
 
-  it('should call toggleInput and clear input when handleSubmit is called', () => {
+  it('should update state when clearInput is called', () => {
+    wrapper.instance().clearInput();
+    expect(wrapper.state('name')).toEqual('');
+  });
+
+  it('should call toggleInput and clearInput when handleSubmit is called', () => {
     const mockEvent =  { keyCode: 13, preventDefault: jest.fn()}
     wrapper.instance().toggleInput = jest.fn();
     wrapper.instance().clearInput = jest.fn();
 
     wrapper.instance().handleSubmit(mockEvent);
-
+    
     expect(wrapper.instance().toggleInput).toHaveBeenCalled();
     expect(wrapper.instance().clearInput).toHaveBeenCalled();
-  })
+  });
+
+
 })
