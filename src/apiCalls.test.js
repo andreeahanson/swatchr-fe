@@ -422,5 +422,80 @@ describe("apiCalls", () => {
     });
   });
 
+  describe('patchProject', () => {
+    let mockProject;
+    let mockResponse;
+
+    beforeEach(() => {
+      mockProject = {
+        name: "Sample 1",
+        palettes: [
+          {
+            name: "Palette 1",
+            color1: "#B06454",
+            color2: "#B7AE23",
+            color3: "#39B723",
+            color4: "#23B7B7",
+            color5: "#232EB7"
+          },
+          {
+            name: "Palette 2",
+            color1: "#B06453",
+            color2: "#B7AE26",
+            color3: "#39B728",
+            color4: "#23B7B5",
+            color5: "#232EB1"
+          }
+        ]
+      };
+
+      mockResponse = { name: "Changed name" }
+
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockResponse)
+        });
+      });
+    });
+
+    it.skip('should be called with correct data', () => {
+      const expected = [
+        'http://swatchr-be.herokuapp.com/api/v1/projects/1',
+        { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mockProject) }
+      ];
+
+      patchProject(mockProject);
+
+      expect(window.fetch).toHaveBeenCalledWith(...expected)
+    });
+
+    it('HAPPY: should return a parsed response', async () => {
+      const result = await patchProject(mockProject);
+
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('SAD: should return an error if status is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false
+        })
+      });
+
+      expect(patchProject(mockProject)).rejects.toEqual(Error('Could not edit the name of the project'))
+    });
+
+    it('SAD: should return an error if promise rejects', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject({
+          message: 'There was an error with the server'
+        });
+      });
+
+      expect(postProject(mockProject)).rejects.toEqual(Error('There was an error with the server'))
+    });
+  });
+
 
 });
