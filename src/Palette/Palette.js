@@ -13,7 +13,7 @@ class Palette extends Component {
       return (
         <div
           key={i}
-          className="color-square"
+          className={`color-square color${i + 1}`}
           style={{ backgroundColor: `#${color}` }}
         />
       );
@@ -36,33 +36,67 @@ class Palette extends Component {
     e.preventDefault();
     await this.props.deleteFetchPalette(this.props.id);
     this.props.returnProjectWithPalettes(this.props.projectId);
-  }
+  };
 
   handleKeyDown = e => {
     if (e.keyCode === 13) {
       e.preventDefault();
       this.handleEdit();
+      this.toggleEditName();
       this.clearForm();
     }
-  }
+  };
 
   handleEdit = async () => {
     await this.props.patchFetchPalette(this.state.name, this.props.id);
     this.props.returnProjectWithPalettes(this.props.projectId);
-  }
+  };
 
   clearForm = () => {
     this.setState({ name: "" });
-  }
+  };
+
+  displayButtons = () => {
+    this.setState({ hover: true });
+  };
+
+  hideButtons = () => {
+    this.setState({ hover: false });
+  };
 
   render() {
     return (
-      <section className="palette">
+      <section
+        onMouseOver={this.displayButtons}
+        onMouseLeave={this.hideButtons}
+        className="palette"
+      >
         <div className="palette-header">
-          <h4>{this.props.name}</h4>
-          <button onClick={this.toggleEditName}>Edit</button>
-          {this.state.displayInput && <input onKeyDown={this.handleKeyDown} type="text" value={this.state.name} name="name" onChange={this.handleChange} className="edit-palette-input" />}
-          <button onClick={this.handleDelete}>X</button>
+          {!this.state.displayInput && <h4>{this.props.name}</h4>}
+          {this.state.displayInput && (
+            <input
+              onKeyDown={this.handleKeyDown}
+              type="text"
+              value={this.state.name}
+              name="name"
+              onChange={this.handleChange}
+              className="edit-palette-input"
+            />
+          )}
+          {this.state.hover && (
+            <div>
+              <img
+                src="./edit.png"
+                alt="edit icon"
+                onClick={this.toggleEditName}
+              />
+              <img
+                src="./close.png"
+                alt="close icon"
+                onClick={this.handleDelete}
+              />
+            </div>
+          )}
         </div>
         <div onClick={this.handleClick} className="palette-colors">
           {this.displayColors()}

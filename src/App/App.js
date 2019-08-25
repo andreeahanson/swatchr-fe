@@ -13,6 +13,7 @@ import {
 } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
+const uuidv1 = require("uuid/v1");
 
 class App extends Component {
   state = {
@@ -28,6 +29,7 @@ class App extends Component {
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
     const projects = this.cleanProjects(rawProjects);
+    projects.reverse();
     this.setState({ projects });
   }
 
@@ -51,7 +53,8 @@ class App extends Component {
       const currentProject = await fetchOneProject(
         `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
       );
-      this.setState({ projects, currentProject })
+      currentProject.palettes.reverse();
+      this.setState({ projects, currentProject });
     }
   };
 
@@ -82,35 +85,33 @@ class App extends Component {
   };
 
   postFetchProject = async newProject => {
-      const newProjectId = await postProject(
-        "http://swatchr-be.herokuapp.com/api/v1/projects",
-        newProject
-      );
-      const project = {
-        id: newProjectId.id[0],
-        name: newProject.project.name
-      };
-      const projects = [
-        ...this.state.projects,
-        project
-      ];
-      const currentProject = this.returnProjectWithPalettes(newProjectId.id[0]);
-      this.setState({ projects });
-  }
+    const newProjectId = await postProject(
+      "http://swatchr-be.herokuapp.com/api/v1/projects",
+      newProject
+    );
+    const project = {
+      id: newProjectId.id[0],
+      name: newProject.project.name
+    };
+    const projects = [...this.state.projects, project];
+    this.returnProjectWithPalettes(newProjectId.id[0]);
+    this.setState({ projects });
+  };
 
   postFetchPalette = async (newPalette, project) => {
-      await postPalette(
-        `http://swatchr-be.herokuapp.com/api/v1/projects/${project.id}/palettes`,
-        newPalette
-      );
-      this.returnProjectWithPalettes(project.id);
+    await postPalette(
+      `http://swatchr-be.herokuapp.com/api/v1/projects/${project.id}/palettes`,
+      newPalette
+    );
+    this.returnProjectWithPalettes(project.id);
   };
 
   cleanColors = colors => {
     return colors.map(color => {
       return {
         hex: color.toUpperCase(),
-        locked: false
+        locked: false,
+        id: uuidv1()
       };
     });
   };
@@ -122,10 +123,11 @@ class App extends Component {
 
   toggleLockedColor = colorObj => {
     const colors = this.state.colors.map(color => {
-      if (color.hex === colorObj.hex) {
+      if (color.id === colorObj.id) {
         return {
           hex: colorObj.hex,
-          locked: colorObj.locked
+          locked: colorObj.locked,
+          id: colorObj.id
         };
       } else {
         return color;
@@ -147,8 +149,8 @@ class App extends Component {
     let scheme = new ColorScheme();
     const randomColor = this.returnRandomHex();
     scheme.from_hex(randomColor);
-    let rawColors = [...scheme.colors(), randomColor];
-    let newColors = this.cleanColors(rawColors);
+    const rawColors = [...scheme.colors(), randomColor];
+    const newColors = this.cleanColors(rawColors);
     if (this.state.colors.length) {
       const colors = this.mapLockedColors(newColors);
       this.setState({ colors });
@@ -169,8 +171,7 @@ class App extends Component {
     });
   };
 
-  handleClick = e => {
-    e.preventDefault();
+  handleClick = () => {
     this.createScheme();
   };
 
@@ -187,13 +188,10 @@ class App extends Component {
       <main className="app">
         <header className="app-header">
           <h1>Swatchr</h1>
-          <div
-            className="generate-scheme"
-            onClick={this.handleClick}
-            onMouseOver={this.onMouseOver}
-            onMouseOut={this.onMouseOut}
-          >
-            Generate scheme
+          <div className="generate-scheme" onClick={this.handleClick}>
+            <p onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+              Generate scheme
+            </p>
             {this.state.schemeHover && (
               <img src="./down.png" alt="down arrow" />
             )}

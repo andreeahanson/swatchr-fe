@@ -20,6 +20,7 @@ class AddProjectForm extends Component {
       e.preventDefault();
       const newProject = { project: { name: this.state.name } };
       this.props.postFetchProject(newProject);
+      this.toggleInput();
       this.clearInput();
     }
   };

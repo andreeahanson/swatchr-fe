@@ -31,6 +31,7 @@ class AddPaletteForm extends Component {
         }
       };
       this.props.postFetchPalette(newPalette, currentProject);
+      this.toggleInput();
       this.clearInput();
     }
   };

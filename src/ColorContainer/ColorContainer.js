@@ -9,7 +9,8 @@ const ColorContainer = props => {
         <Color
           hex={color.hex}
           locked={color.locked}
-          key={color.hex}
+          key={color.id}
+          id={color.id}
           toggleLockedColor={props.toggleLockedColor}
         />
       );

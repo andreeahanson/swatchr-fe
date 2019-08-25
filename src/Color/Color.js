@@ -11,7 +11,8 @@ class Color extends Component {
     await this.setState({ locked: !this.state.locked });
     const colorObj = {
       hex: this.props.hex,
-      locked: this.state.locked
+      locked: this.state.locked,
+      id: this.props.id
     }
     this.props.toggleLockedColor(colorObj)
   };
