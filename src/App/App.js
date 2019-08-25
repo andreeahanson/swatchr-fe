@@ -28,6 +28,7 @@ class App extends Component {
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
     const projects = this.cleanProjects(rawProjects);
+    projects.reverse();
     this.setState({ projects });
   }
 
@@ -51,6 +52,7 @@ class App extends Component {
       const currentProject = await fetchOneProject(
         `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
       );
+      currentProject.palettes.reverse();
       this.setState({ projects, currentProject })
     }
   };

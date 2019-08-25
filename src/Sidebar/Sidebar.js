@@ -21,7 +21,8 @@ class Sidebar extends Component {
   }
 
   displayPalettes = () => {
-    return this.state.currentProject.palettes.map((palette, i) => {
+    const allPalettes = this.state.currentProject.palettes;
+    return allPalettes.map((palette, i) => {
       const { color1, color2, color3, color4, color5, name } = palette;
       const colors = [color1, color2, color3, color4, color5];
       return (
