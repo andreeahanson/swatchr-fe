@@ -379,5 +379,48 @@ describe("apiCalls", () => {
     });
   });
 
+  describe('deletePalette', () => {
+    beforeEach(() => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true
+        });
+      });
+    });
+
+    it('should call fetch with correct data', () => {
+      const expected = ['http://swatchr-be.herokuapp.com/api/v1/palettes/1', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }];
+
+      deletePalette('http://swatchr-be.herokuapp.com/api/v1/palettes/1');
+
+      expect(window.fetch).toHaveBeenCalledWith(...expected);
+    });
+
+    it('SAD: should return an error if status is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false
+        });
+      });
+
+      expect(deletePalette('http://swatchr-be.herokuapp.com/api/v1/palettes/1')).rejects.toEqual(Error('Could not delete palette'))
+    });
+
+    it('SAD: should return an error if promise rejects', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject({
+          message: "There was an error with the server"
+        });
+      });
+
+      expect(deletePalette('http://swatchr-be.herokuapp.com/api/v1/palettes/1')).rejects.toEqual(Error('There was a problem with the server'))
+    });
+  });
+
 
 });
