@@ -497,5 +497,67 @@ describe("apiCalls", () => {
     });
   });
 
+  describe('patchPalette', () => {
+    let mockPalette;
+    let mockResponse;
+
+    beforeEach(() => {
+      mockPalette = {
+            name: "Palette 1",
+            color1: "#B06454",
+            color2: "#B7AE23",
+            color3: "#39B723",
+            color4: "#23B7B7",
+            color5: "#232EB7"
+          };
+
+      mockResponse = { name: "Changed name" }
+
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockResponse)
+        });
+      });
+    });
+
+    it.skip('should be called with correct data', () => {
+      const expected = [
+        'http://swatchr-be.herokuapp.com/api/v1/palettes/1',
+        { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mockPalette) }
+      ];
+
+      patchPalette(mockPalette);
+
+      expect(window.fetch).toHaveBeenCalledWith(...expected)
+    });
+
+    it('HAPPY: should return a parsed response', async () => {
+      const result = await patchPalette(mockPalette);
+
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('SAD: should return an error if status is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false
+        })
+      });
+
+      expect(patchPalette(mockPalette)).rejects.toEqual(Error('Could not edit the name of the palette'))
+    });
+
+    it('SAD: should return an error if promise rejects', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject({
+          message: 'There was an error with the server'
+        });
+      });
+
+      expect(postPalette(mockPalette)).rejects.toEqual(Error('There was an error with the server'))
+    });
+  });
+
 
 });
