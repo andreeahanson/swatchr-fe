@@ -273,5 +273,68 @@ describe("apiCalls", () => {
     })
   });
 
+  describe('postPalette', () => {
+    let mockPalette;
+    let mockResponse;
+
+    beforeEach(() => {
+      mockPalette = {
+            name: "Palette 1",
+            color1: "#B06454",
+            color2: "#B7AE23",
+            color3: "#39B723",
+            color4: "#23B7B7",
+            color5: "#232EB7"
+      };
+
+      mockResponse = { id: [1] }
+
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockResponse)
+        });
+      });
+    });
+
+    it.skip('should be called with correct data', () => {
+      const expected = [
+        'http://swatchr-be.herokuapp.com/api/v1/projects/1/palettes',
+        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mockPalette) }
+      ];
+
+      postPalette(mockPalette);
+
+      expect(window.fetch).toHaveBeenCalledWith(...expected)
+    });
+
+    it('HAPPY: should return a parsed response', async () => {
+      const result = await postPalette(mockPalette);
+
+      expect(result).toEqual(mockResponse);
+    });
+
+    it('SAD: should return an error if status is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false,
+          json: () => Promise.resolve(mockResponse)
+        });
+      });
+
+      expect(postPalette(mockPalette)).rejects.toEqual(Error('Could not add new palette'))
+    });
+
+    it('SAD: should return an error if promise rejects', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject({
+          message: 'Could not add new palette'
+        });
+      });
+
+      expect(postPalette(mockPalette)).rejects.toEqual(Error('There was an error with the server'))
+    });
+  });
+
 
 });
