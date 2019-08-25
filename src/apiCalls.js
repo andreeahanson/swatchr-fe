@@ -44,7 +44,7 @@ export const fetchOnePalette = async (url, id) => {
   try {
     const response = await fetch(url, id)
     if(!response.ok){
-      throw new Error("Could not fetch palettes")
+      throw new Error("Could not fetch palette")
     } else {
       const palette = response.json();
       return palette
