@@ -13,6 +13,7 @@ import {
 } from "../apiCalls";
 import "./App.scss";
 const ColorScheme = require("color-scheme");
+const uuidv1 = require("uuid/v1");
 
 class App extends Component {
   state = {
@@ -112,7 +113,8 @@ class App extends Component {
     return colors.map(color => {
       return {
         hex: color.toUpperCase(),
-        locked: false
+        locked: false,
+        id: uuidv1()
       };
     });
   };
@@ -124,10 +126,11 @@ class App extends Component {
 
   toggleLockedColor = colorObj => {
     const colors = this.state.colors.map(color => {
-      if (color.hex === colorObj.hex) {
+      if (color.id === colorObj.id) {
         return {
           hex: colorObj.hex,
-          locked: colorObj.locked
+          locked: colorObj.locked,
+          id: colorObj.id
         };
       } else {
         return color;
@@ -149,8 +152,8 @@ class App extends Component {
     let scheme = new ColorScheme();
     const randomColor = this.returnRandomHex();
     scheme.from_hex(randomColor);
-    let rawColors = [...scheme.colors(), randomColor];
-    let newColors = this.cleanColors(rawColors);
+    const rawColors = [...scheme.colors(), randomColor];
+    const newColors = this.cleanColors(rawColors);
     if (this.state.colors.length) {
       const colors = this.mapLockedColors(newColors);
       this.setState({ colors });
@@ -171,8 +174,7 @@ class App extends Component {
     });
   };
 
-  handleClick = e => {
-    e.preventDefault();
+  handleClick = () => {
     this.createScheme();
   };
 
