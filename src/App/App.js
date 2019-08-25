@@ -54,7 +54,7 @@ class App extends Component {
         `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
       );
       currentProject.palettes.reverse();
-      this.setState({ projects, currentProject })
+      this.setState({ projects, currentProject });
     }
   };
 
@@ -85,28 +85,25 @@ class App extends Component {
   };
 
   postFetchProject = async newProject => {
-      const newProjectId = await postProject(
-        "http://swatchr-be.herokuapp.com/api/v1/projects",
-        newProject
-      );
-      const project = {
-        id: newProjectId.id[0],
-        name: newProject.project.name
-      };
-      const projects = [
-        ...this.state.projects,
-        project
-      ];
-      this.returnProjectWithPalettes(newProjectId.id[0]);
-      this.setState({ projects });
-  }
+    const newProjectId = await postProject(
+      "http://swatchr-be.herokuapp.com/api/v1/projects",
+      newProject
+    );
+    const project = {
+      id: newProjectId.id[0],
+      name: newProject.project.name
+    };
+    const projects = [...this.state.projects, project];
+    this.returnProjectWithPalettes(newProjectId.id[0]);
+    this.setState({ projects });
+  };
 
   postFetchPalette = async (newPalette, project) => {
-      await postPalette(
-        `http://swatchr-be.herokuapp.com/api/v1/projects/${project.id}/palettes`,
-        newPalette
-      );
-      this.returnProjectWithPalettes(project.id);
+    await postPalette(
+      `http://swatchr-be.herokuapp.com/api/v1/projects/${project.id}/palettes`,
+      newPalette
+    );
+    this.returnProjectWithPalettes(project.id);
   };
 
   cleanColors = colors => {
@@ -191,13 +188,10 @@ class App extends Component {
       <main className="app">
         <header className="app-header">
           <h1>Swatchr</h1>
-          <div
-            className="generate-scheme"
-            onClick={this.handleClick}
-            onMouseOver={this.onMouseOver}
-            onMouseOut={this.onMouseOut}
-          >
-            Generate scheme
+          <div className="generate-scheme" onClick={this.handleClick}>
+            <p onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+              Generate scheme
+            </p>
             {this.state.schemeHover && (
               <img src="./down.png" alt="down arrow" />
             )}
