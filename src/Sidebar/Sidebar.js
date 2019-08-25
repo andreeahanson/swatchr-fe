@@ -77,7 +77,10 @@ class Sidebar extends Component {
     e.preventDefault();
     await this.props.deleteFetchProject(this.state.currentProject.id);
     this.props.returnProjectWithPalettes(-1);
-    this.setState({ currentProject: { id: -1 }, selectedProject: "Select Project" });
+    this.setState({
+      currentProject: { id: -1 },
+      selectedProject: "Select Project"
+    });
   };
 
   toggleEditName = () => {
@@ -134,24 +137,36 @@ class Sidebar extends Component {
                 colors={this.props.colors}
               />
             )}
-            {this.state.selectedProject !== "Select Project" && (
-              <header>
-                <h3>{this.state.currentProject.name}</h3>
-                <button onClick={this.toggleEditName}>Edit</button>
-                {this.state.displayInput && (
-                  <input
-                    onKeyDown={this.handleKeyDown}
-                    type="text"
-                    value={this.state.currentProjectName}
-                    name="currentProjectName"
-                    onChange={this.handleChange}
-                    className="edit-project-input"
-                  />
-                )}
-                <button onClick={this.handleDelete}>X</button>
-              </header>
-            )}
             <section className="palettes-section">
+              {this.state.selectedProject !== "Select Project" && (
+                <header className="project-header">
+                  {!this.state.displayInput && (
+                    <h3>{this.state.currentProject.name}</h3>
+                  )}
+                  {this.state.displayInput && (
+                    <input
+                      onKeyDown={this.handleKeyDown}
+                      type="text"
+                      value={this.state.currentProjectName}
+                      name="currentProjectName"
+                      onChange={this.handleChange}
+                      className="edit-project-input"
+                    />
+                  )}
+                  <div>
+                    <img
+                      src="./edit.png"
+                      alt="edit icon"
+                      onClick={this.toggleEditName}
+                    />
+                    <img
+                      src="./close.png"
+                      alt="close icon"
+                      onClick={this.handleDelete}
+                    />
+                  </div>
+                </header>
+              )}
               {this.state.currentProject.palettes && this.displayPalettes()}
             </section>
           </nav>

@@ -94,7 +94,7 @@ class App extends Component {
         ...this.state.projects,
         project
       ];
-      const currentProject = this.returnProjectWithPalettes(newProjectId.id[0]);
+      this.returnProjectWithPalettes(newProjectId.id[0]);
       this.setState({ projects });
   }
 

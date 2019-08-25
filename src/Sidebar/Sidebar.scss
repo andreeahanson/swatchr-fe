@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900');
-
+@import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900");
 
 @mixin flexCol {
   display: flex;
@@ -15,18 +14,73 @@
 }
 
 @keyframes slide {
-    0% { width: 0vw; }
-    100% { width: 15vw; }
+  0% {
+    width: 0vw;
+  }
+  100% {
+    width: 15vw;
+  }
 }
 
 .sidebar {
   padding: 8px;
   width: 15vw;
-  animation: slide .3s;
+  animation: slide 0.3s;
   .palettes-section {
     width: 100%;
     margin-top: 20px;
   }
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 15px;
+  height: 18px;
+  h3 {
+    margin: 0;
+    font-weight: 100;
+  }
+  div {
+    display: flex;
+    justify-content: space-around;
+    img {
+      height: 15px;
+      margin-left: 6px;
+      &:hover {
+        cursor: pointer;
+        opacity: .4;
+      }
+    }
+  }
+}
+
+@keyframes openInput {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.edit-project-input {
+  animation: openInput .2s;
+  transform-origin: left;
+  border: solid 1px gray;
+  border-radius: 4px;
+  height: 20px;
+  width: 75%;
+}
+
+.palettes-section {
+  padding: 5px 0px 20px 0px;
+  border-radius: 4px;
+  overflow-y: scroll;
 }
 
 .projects-form {
@@ -34,14 +88,14 @@
   width: 100%;
 
   select {
-    font-family: 'Lato', sans-serif;
+    font-family: "Lato", sans-serif;
     width: 90%;
     height: 35px;
     border: 1px solid gray;
     border-radius: 4px;
     font-size: 1rem;
     background: white;
-    &:hover{
+    &:hover {
       cursor: pointer;
       background: lightgray;
     }
@@ -57,18 +111,17 @@
   margin-left: -40px;
   background: white;
   border-radius: 10px 0px 0px 10px;
-  opacity: .5;
+  opacity: 0.5;
   padding: 10px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  img{
+  img {
     height: 40px;
   }
 
-  &:hover{
+  &:hover {
     cursor: pointer;
-    opacity: .8;
+    opacity: 0.8;
   }
 }
