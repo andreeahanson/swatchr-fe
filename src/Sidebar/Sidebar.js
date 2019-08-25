@@ -73,9 +73,11 @@ class Sidebar extends Component {
     this.setState({ currentProjectName: "" });
   };
 
-  handleDelete = e => {
+  handleDelete = async e => {
     e.preventDefault();
-    this.props.deleteFetchProject(this.state.currentProject.id);
+    await this.props.deleteFetchProject(this.state.currentProject.id);
+    this.props.returnProjectWithPalettes(-1);
+    this.setState({ currentProject: { id: -1 }, selectedProject: "Select Project" });
   };
 
   toggleEditName = () => {
@@ -91,11 +93,12 @@ class Sidebar extends Component {
     }
   };
 
-  handleEdit = () => {
-    this.props.patchFetchProject(
+  handleEdit = async () => {
+    await this.props.patchFetchProject(
       this.state.currentProjectName,
       this.state.currentProject.id
     );
+    this.props.returnProjectWithPalettes(this.state.currentProject.id);
   };
 
   render() {

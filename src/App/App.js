@@ -41,10 +41,18 @@ class App extends Component {
   };
 
   returnProjectWithPalettes = async id => {
-    const currentProject = await fetchOneProject(
-      `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
+    const rawProjects = await fetchProjects(
+      "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
-    this.setState({ currentProject })
+    const projects = this.cleanProjects(rawProjects);
+    if (id === -1) {
+      this.setState({ projects, currentProject: {} });
+    } else {
+      const currentProject = await fetchOneProject(
+        `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
+      );
+      this.setState({ projects, currentProject })
+    }
   };
 
   deleteFetchPalette = async id => {
