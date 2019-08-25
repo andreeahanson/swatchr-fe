@@ -32,9 +32,10 @@ class Palette extends Component {
     this.setState({ displayInput: !this.state.displayInput });
   };
 
-  handleDelete = e => {
+  handleDelete = async e => {
     e.preventDefault();
-    this.props.deleteFetchPalette(this.props.id);
+    await this.props.deleteFetchPalette(this.props.id);
+    this.props.returnProjectWithPalettes(this.props.projectId);
   }
 
   handleKeyDown = e => {
@@ -45,8 +46,9 @@ class Palette extends Component {
     }
   }
 
-  handleEdit = () => {
-    this.props.patchFetchPalette(this.state.name, this.props.id);
+  handleEdit = async () => {
+    await this.props.patchFetchPalette(this.state.name, this.props.id);
+    this.props.returnProjectWithPalettes(this.props.projectId);
   }
 
   clearForm = () => {
