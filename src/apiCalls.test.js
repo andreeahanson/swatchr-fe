@@ -42,6 +42,62 @@ describe("apiCalls", () => {
     });
   });
 
-  
+  describe("fetchOneProject", () => {
+    let mockProject;
+
+    beforeEach(() => {
+      mockProject = {
+        name: "Sample 1",
+        palettes: [
+          {
+            name: "Palette 1",
+            color1: "#B06454",
+            color2: "#B7AE23",
+            color3: "#39B723",
+            color4: "#23B7B7",
+            color5: "#232EB7"
+          },
+          {
+            name: "Palette 2",
+            color1: "#B06453",
+            color2: "#B7AE26",
+            color3: "#39B728",
+            color4: "#23B7B5",
+            color5: "#232EB1"
+          }
+        ]
+      };
+
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockProject)
+        });
+      });
+    });
+
+    it.skip("should be called with correct URL", () => {
+      const expected = "http://swatchr-be.herokuapp.com/api/v1/projects/1";
+      fetchOneProject();
+      expect(window.fetch).toHaveBeenCalledWith(expected);
+    });
+
+    it("HAPPY: should return with a parsed response", async () => {
+      const result = await fetchOneProject();
+      expect(result).toEqual(mockProject);
+    });
+
+    it("SAD: should return an error if the answer is not ok", () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false
+        });
+      });
+      expect(fetchOneProject()).rejects.toEqual(
+        Error("Could not fetch project")
+      );
+    });
+  });
+
 
 });
