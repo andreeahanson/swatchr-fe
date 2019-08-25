@@ -99,5 +99,59 @@ describe("apiCalls", () => {
     });
   });
 
+  describe("fetchPalettes", () => {
+    let mockPalettes;
+
+    beforeEach(() => {
+      mockPalettes = [
+        {
+          name: "Palette 1",
+          color1: "#B06454",
+          color2: "#B7AE23",
+          color3: "#39B723",
+          color4: "#23B7B7",
+          color5: "#232EB7"
+        },
+        {
+          name: "Palette 2",
+          color1: "#B06453",
+          color2: "#B7AE26",
+          color3: "#39B728",
+          color4: "#23B7B5",
+          color5: "#232EB1"
+        }
+      ];
+
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockPalettes)
+        });
+      });
+    });
+
+    it.skip("should be called with correct URL", () => {
+      const expected = "http://swatchr-be.herokuapp.com/api/v1/palettes";
+      fetchPalettes();
+      expect(window.fetch).toHaveBeenCalledWith(expected);
+    });
+
+    it("HAPPY: should return with a parsed response", async () => {
+      const result = await fetchPalettes();
+      expect(result).toEqual(mockPalettes);
+    });
+
+    it("SAD: should return an error if the answer is not ok", () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false
+        });
+      });
+      expect(fetchPalettes()).rejects.toEqual(
+        Error("Could not fetch palettes")
+      );
+    });
+  });
+
 
 });
