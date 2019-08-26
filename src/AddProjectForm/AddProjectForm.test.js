@@ -34,5 +34,9 @@ describe('AddProjectForm', () => {
     expect(wrapper.state('displayInput')).toEqual(true);
   });
 
+  it('should update state when clearInput is called', () => {
+    wrapper.instance().clearInput();
+    expect(wrapper.state('name')).toEqual('');
+  });
 
 })
