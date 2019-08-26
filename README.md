@@ -29,6 +29,21 @@ Then, go to http://localhost:3000/ in your browser to see the code running in th
 
 ## Learning goals
 
+The primary learning goals for this project are:
+- connecting Back End & Front End repositories using CORS
+- multiple environments:
+- testing
+- making use of automatic continuous integration with TravisCI
+- deployment with Heroku
+
+The second focus for this project is developing professional-level workflow habits. This includes:
+- using a PR template
+- conducting actual code reviews in your PRs
+- detailed agile workflow using a kanban system or GH issues
+- keeping track of MVP features and nice-to-have features
+- agreeing to a commit message template
+- exploring git rebase and squashing highly semantic, specific, professional documentation (README, API documentation, etc)
+
 ## Team members
 
 [Steve Rumizen](https://github.com/rumizen)
