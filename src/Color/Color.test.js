@@ -16,5 +16,21 @@ describe('Color', () => {
 
   it('should match the snapshot', () => {
     expect(wrapper).toMatchSnapshot();
-  })
+  });
+
+  it('should change state when toggleLock is called', () => {
+    const mockEvent =  { preventDefault: jest.fn()}
+    const mockColorObj = {
+      hex: 'ffff',
+      locked: false,
+      id: 1
+    }
+
+    wrapper.instance().toggleLock(mockEvent);
+
+    expect(wrapper.state('locked')).toEqual(true);
+    // expect(wrapper.instance().toggleLockedColor).toHaveBeenCalledWith(mockColorObj);
+  });
+
+
 })
