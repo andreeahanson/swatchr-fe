@@ -188,7 +188,7 @@ class App extends Component {
     return (
       <main className="app">
         <header className="app-header">
-          <h1>Swatchr</h1>
+          <h1>Swatchr<img src="./paint.png" alt="paint brush icon"/></h1>
           <div className="generate-scheme" onClick={this.handleClick}>
             <p onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
               Generate scheme
