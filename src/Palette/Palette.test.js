@@ -50,8 +50,18 @@ describe("Palette", () => {
   });
 
   it("should update state of hover to true when displayButtons is invoked", () => {
+    wrapper.state.hover = false;
     instance.displayButtons();
 
     expect(wrapper.state("hover")).toEqual(true);
   });
+
+  it("should update state of hover to false when hideButtons is invoked", () => {
+    wrapper.state.hover = true;
+    instance.hideButtons();
+
+    expect(wrapper.state("hover")).toEqual(false);
+  });
+
+  
 });
