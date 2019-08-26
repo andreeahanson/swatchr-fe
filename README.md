@@ -1,68 +1,69 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Swatchr is an app designed for people interested in creating color schemes for renovated homes, websites, party themes, decorations and much more. 
 
-In the project directory, you can run:
+On page load, the app generates a scheme of 5 colors. The user can generate another one by clicking "Generate scheme" at the top of the page. The user can also lock a favorite color, that will persist, while the other colors will change again, once "Generate scheme" is clicked again. A color can be locked or unlocked by clicking on the "lock"/"unlock" symbol at the bottom of each color.
 
-### `npm start`
+On the right side of the page, the user will notice an arrow pointing to the left, which renders an initial menu, where they can select a project (if they have any) or they can create a project, by clicking the "+Add Project" button, and by filling out the input that appears on click. Once the project has been created, the user can save their favorite palette to that particular project, by clicking on "Save Palette", and by filling out the input that is generated.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+After creating one or several projects, the user can view them in the list of projects at the top of the sidebar, and can select one by clicking on the menu. Once a project has been selected, the sidebar will display the name of the project and the list of palettes included in that project, with their names and a preview of their colors. 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+This project is intended to solidify our RESTful API design skills and get us familiarized with the patterns associated with building a single app across multiple repositories. Connected to this repository is another repository, meant to build the back-end of this project. The back-end repository, with its dedicated README can be found here: https://github.com/rumizen/swatchr-be.git. 
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+git clone https://github.com/andreeahanson/swatchr-fe.git
+```
+Once you have cloned the repo, install the library dependencies. Run:
 
-### `npm run build`
+```
+npm install
+```
+To view the app in action, run the following command in your terminal:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm start
+```
+Then, go to http://localhost:3000/ in your browser to see the code running in the browser.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Screenshots
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Page load
 
-### `npm run eject`
+![Page Load](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Page%20Load.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Sidebar 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Sidebar Show](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Sidebar%20Show.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Sidebar with selected project
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![Selected Project](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Sidebar%20With%20Selected%20Project.png)
 
-## Learn More
+## Learning goals
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The primary learning goals for this project are:
+- connecting Back End & Front End repositories using CORS
+- multiple environments:
+- testing
+- making use of automatic continuous integration with TravisCI
+- deployment with Heroku
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The second focus for this project is developing professional-level workflow habits. This includes:
+- using a PR template
+- conducting actual code reviews in your PRs
+- detailed agile workflow using a kanban system or GH issues
+- keeping track of MVP features and nice-to-have features
+- agreeing to a commit message template
+- exploring git rebase and squashing highly semantic, specific, professional documentation (README, API documentation, etc)
 
-### Code Splitting
+## Team members
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+[Steve Rumizen](https://github.com/rumizen)
 
-### Analyzing the Bundle Size
+[Andreea Hanson](https://github.com/andreeahanson)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
