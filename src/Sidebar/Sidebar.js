@@ -84,7 +84,8 @@ class Sidebar extends Component {
     this.props.returnProjectWithPalettes(-1);
     this.setState({
       currentProject: { id: -1 },
-      selectedProject: "Select Project"
+      selectedProject: "Select Project",
+      displayHeaderButtons: false
     });
   };
 
