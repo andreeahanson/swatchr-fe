@@ -46,7 +46,7 @@ class Sidebar extends Component {
 
   displayOptions = () => {
     const { projects } = this.props;
-    return projects.reverse().map((proj, i) => (
+    return projects.map((proj, i) => (
       <option id={proj.id} key={i} value={proj.name}>
         {proj.name}
       </option>
