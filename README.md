@@ -29,6 +29,18 @@ Then, go to http://localhost:3000/ in your browser to see the code running in th
 
 ## Screenshots
 
+### Page load
+
+[Page Load](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Page%20Load.png)
+
+### Sidebar 
+
+[Sidebar Show](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Sidebar%20Show.png)
+
+### Sidebar with selected project
+
+[Selected Project](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Sidebar%20With%20Selected%20Project.png)
+
 ## Learning goals
 
 The primary learning goals for this project are:
