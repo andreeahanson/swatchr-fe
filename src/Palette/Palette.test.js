@@ -43,5 +43,9 @@ describe("Palette", () => {
     await expect(mockReturnProjectWithPalettes).toHaveBeenCalled();
   });
 
-  
+  it("should update state of name to empty string when clearForm is invoked", () => {
+    instance.clearForm();
+
+    expect(wrapper.state("name")).toEqual("");
+  });
 });
