@@ -8,7 +8,7 @@ On the right side of the page, the user will notice an arrow pointing to the lef
 
 After creating one or several projects, the user can view them in the list of projects at the top of the sidebar, and can select one by clicking on the menu. Once a project has been selected, the sidebar will display the name of the project and the list of palettes included in that project, with their names and a preview of their colors. 
 
-This project is intended to solidify our RESTful API design skills and get us familiarized with the patterns associated with building a single app across multiple repositories. Connected to this repository is another repository, meant to build the back-end of this project. The back-end repository, with it's dedicated README can be found here: https://github.com/rumizen/swatchr-be.git. 
+This project is intended to solidify our RESTful API design skills and get us familiarized with the patterns associated with building a single app across multiple repositories. Connected to this repository is another repository, meant to build the back-end of this project. The back-end repository, with its dedicated README can be found here: https://github.com/rumizen/swatchr-be.git. 
 
 ## Installation
 
