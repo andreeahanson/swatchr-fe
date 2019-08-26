@@ -29,7 +29,7 @@ class App extends Component {
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
     const projects = this.cleanProjects(rawProjects);
-    projects.reverse();
+    // projects.reverse();
     this.setState({ projects });
   }
 

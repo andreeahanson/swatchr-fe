@@ -16,7 +16,10 @@ class Sidebar extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentProject !== this.props.currentProject) {
-      this.setState({ currentProject: nextProps.currentProject });
+      this.setState({
+        currentProject: nextProps.currentProject,
+        selectedProject: nextProps.currentProject.name
+      });
     }
   }
 
@@ -43,7 +46,7 @@ class Sidebar extends Component {
 
   displayOptions = () => {
     const { projects } = this.props;
-    return projects.map((proj, i) => (
+    return projects.reverse().map((proj, i) => (
       <option id={proj.id} key={i} value={proj.name}>
         {proj.name}
       </option>
