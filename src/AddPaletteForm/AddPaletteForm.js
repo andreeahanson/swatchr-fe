@@ -49,6 +49,7 @@ class AddPaletteForm extends Component {
           onClick={this.toggleInput}
           src="./save.png"
           alt="save icon"
+          className="toggle-input"
         />
         {!this.state.displayInput && <p>Save palette</p>}
         {this.state.displayInput && (
