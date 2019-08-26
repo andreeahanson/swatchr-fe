@@ -24,6 +24,7 @@ Then, go to http://localhost:3001/ in your browser to see the code running in th
 ## Team members
 
 [Steve Rumizen](https://github.com/rumizen)
+
 [Andreea Hanson](https://github.com/andreeahanson)
 
 
