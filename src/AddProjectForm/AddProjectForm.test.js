@@ -29,6 +29,10 @@ describe('AddProjectForm', () => {
     expect(wrapper.state('name')).toEqual(expected);
   });
 
+  it('should update state when toggleInput is called', () => {
+    wrapper.instance().toggleInput();
+    expect(wrapper.state('displayInput')).toEqual(true);
+  });
 
 
 })
