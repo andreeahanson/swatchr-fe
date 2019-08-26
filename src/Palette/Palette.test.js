@@ -4,6 +4,7 @@ import { shallow } from "enzyme";
 
 describe("Palette", () => {
   let wrapper;
+  let instance;
 
   let mockId = 1;
   let mockProjectId = 1;
@@ -11,7 +12,7 @@ describe("Palette", () => {
   let mockColors = [{ hex: "ffff", locked: false }];
   let mockReturnColors = jest.fn();
   let mockDeleteFetchPalette = jest.fn();
-  let mockPathFetchPalette = jest.fn();
+  let mockPatchFetchPalette = jest.fn();
   let mockReturnProjectWithPalettes = jest.fn();
 
   beforeEach(() => {
@@ -23,13 +24,24 @@ describe("Palette", () => {
         colors={mockColors}
         returnColors={mockReturnColors}
         deleteFetchPalette={mockDeleteFetchPalette}
-        fetchPalette={mockPathFetchPalette}
+        patchFetchPalette={mockPatchFetchPalette}
         returnProjectWithPalettes={mockReturnProjectWithPalettes}
       />
     );
+
+    instance = wrapper.instance();
   });
 
   it("should match the snapshot", () => {
     expect(wrapper).toMatchSnapshot();
-  })
+  });
+
+  it('should call patchFetchPalette and returnProjectWithPalettes when handleEdit is invoked', async () => {
+    instance.handleEdit();
+
+    await expect(mockPatchFetchPalette).toHaveBeenCalled();
+    await expect(mockReturnProjectWithPalettes).toHaveBeenCalled();
+  });
+
+  
 });
