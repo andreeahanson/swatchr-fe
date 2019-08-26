@@ -26,8 +26,8 @@ describe('Color', () => {
     expect(wrapper.state('locked')).toEqual(true);
   });
 
-  it('should call toggleLockedColor with correct argument when toggleLock is called', async () => {
-    
+  it('should call toggleLockedColor with correct argument when toggleLock is called', () => {
+    const mockEvent =  { preventDefault: jest.fn()}
     const mockColorObj1 = {
       hex: 'ffff',
       locked: false,
@@ -38,11 +38,10 @@ describe('Color', () => {
       locked: true,
       id: 1
     }
-    wrapper.instance().toggleLockedColor = jest.fn();
 
-    await wrapper.find('.lock-icon').simulate('click')
+    wrapper.find('.lock-icon').simulate('click', mockEvent)
 
-    expect(wrapper.instance().toggleLockedColor).toHaveBeenCalledWith(mockColorObj1);
-    expect(wrapper.instance().toggleLockedColor).toHaveBeenCalledWith(mockColorObj2);
+    expect(wrapper.instance().props.toggleLockedColor).not.toHaveBeenCalledWith(mockColorObj1);
+    expect(wrapper.instance().props.toggleLockedColor).toHaveBeenCalledWith(mockColorObj2);
   })
 })
