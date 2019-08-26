@@ -48,4 +48,10 @@ describe("Palette", () => {
 
     expect(wrapper.state("name")).toEqual("");
   });
+
+  it("should update state of hover to true when displayButtons is invoked", () => {
+    instance.displayButtons();
+
+    expect(wrapper.state("hover")).toEqual(true);
+  });
 });
