@@ -28,8 +28,8 @@ class App extends Component {
     const rawProjects = await fetchProjects(
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
+    rawProjects.reverse();
     const projects = this.cleanProjects(rawProjects);
-    projects.reverse();
     this.setState({ projects });
   }
 
@@ -47,6 +47,7 @@ class App extends Component {
       "http://swatchr-be.herokuapp.com/api/v1/projects"
     );
     const projects = this.cleanProjects(rawProjects);
+    projects.reverse();
     if (id === -1) {
       this.setState({ projects, currentProject: {} });
     } else {
@@ -93,7 +94,7 @@ class App extends Component {
       id: newProjectId.id[0],
       name: newProject.project.name
     };
-    const projects = [...this.state.projects, project];
+    const projects = [ project, ...this.state.projects ];
     this.returnProjectWithPalettes(newProjectId.id[0]);
     this.setState({ projects });
   };

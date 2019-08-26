@@ -16,7 +16,10 @@ class Sidebar extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentProject !== this.props.currentProject) {
-      this.setState({ currentProject: nextProps.currentProject });
+      this.setState({
+        currentProject: nextProps.currentProject,
+        selectedProject: nextProps.currentProject.name
+      });
     }
   }
 
