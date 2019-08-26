@@ -39,6 +39,9 @@
   width: 90%;
   margin-bottom: 15px;
   height: 18px;
+  &:hover {
+    cursor: pointer;
+  }
   h3 {
     margin: 0;
     font-weight: 100;

@@ -11,7 +11,8 @@ class Sidebar extends Component {
     currentProject: {},
     navDisplay: false,
     currentProjectName: "",
-    displayInput: false
+    displayInput: false,
+    displayHeaderButtons: false
   };
 
   componentWillReceiveProps(nextProps) {
@@ -108,6 +109,10 @@ class Sidebar extends Component {
     this.props.returnProjectWithPalettes(this.state.currentProject.id);
   };
 
+  toggleHeaderButtons = () => {
+    this.setState({ displayHeaderButtons: !this.state.displayHeaderButtons });
+  };
+
   render() {
     return (
       <div className="sidebar-wrapper">
@@ -143,7 +148,11 @@ class Sidebar extends Component {
             )}
             <section className="palettes-section">
               {this.state.selectedProject !== "Select Project" && (
-                <header className="project-header">
+                <header
+                  onMouseEnter={this.toggleHeaderButtons}
+                  onMouseLeave={this.toggleHeaderButtons}
+                  className="project-header"
+                >
                   {!this.state.displayInput && (
                     <h3>{this.state.currentProject.name}</h3>
                   )}
@@ -157,18 +166,20 @@ class Sidebar extends Component {
                       className="edit-project-input"
                     />
                   )}
-                  <div>
-                    <img
-                      src="./edit.png"
-                      alt="edit icon"
-                      onClick={this.toggleEditName}
-                    />
-                    <img
-                      src="./close.png"
-                      alt="close icon"
-                      onClick={this.handleDelete}
-                    />
-                  </div>
+                  {this.state.displayHeaderButtons && (
+                    <div>
+                      <img
+                        src="./edit.png"
+                        alt="edit icon"
+                        onClick={this.toggleEditName}
+                      />
+                      <img
+                        src="./close.png"
+                        alt="close icon"
+                        onClick={this.handleDelete}
+                      />
+                    </div>
+                  )}
                 </header>
               )}
               {this.state.currentProject.palettes && this.displayPalettes()}
