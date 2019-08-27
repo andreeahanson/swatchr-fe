@@ -80,4 +80,22 @@ describe("Palette", () => {
 
     expect(wrapper.state("name")).toEqual("Mock Palette Name");
   });
+
+  it("should update displayInput state when toggleEditName is invoked", () => {
+    instance.state.displayInput = false
+    instance.toggleEditName();
+
+    expect(wrapper.state("displayInput")).toEqual(true);
+  });
+
+  it("should call deleteFetchPatch and returnProjectsWithPalettes when handleDelete is invoked", () => {
+    const mockEvent = {
+      preventDefault: jest.fn()
+    };
+    instance.handleDelete(mockEvent);
+
+    expect(mockDeleteFetchPalette).toHaveBeenCalled();
+    expect(mockReturnProjectWithPalettes).toHaveBeenCalled();
+  });
+
 });
