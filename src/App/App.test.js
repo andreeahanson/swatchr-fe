@@ -337,4 +337,14 @@ describe("App", () => {
 
     expect(postProject).toHaveBeenCalledWith(url, newProject)
   });
+
+  it('should call patchProject with the correct URL and name', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1`
+
+    const name = "Newest name ever"
+
+    instance.patchFetchProject(name, 1);
+
+    expect(patchProject).toHaveBeenCalledWith(url, {name})
+  });
 });
