@@ -138,15 +138,47 @@ describe("App", () => {
     expect(colors).toEqual(expectedColors);
   });
 
-  it("should set state of colors to new scheme when createScheme is invoked", () => {
-    const originalColorId = wrapper.state("colors")[0].id;
-
+  it("should map through locked colors and reset colors state", () => {
+    instance.state.colors = [
+      {
+        hex: "ffffff",
+        locked: true,
+        id: "4aad0620-c90a-11e9-904f-d561aba1162f"
+      },
+      {
+        hex: "8B663F",
+        locked: false,
+        id: "fake2"
+      },
+      {
+        hex: "FFEEDC",
+        locked: false,
+        id: "fake1"
+      },
+      {
+        hex: "cccccc",
+        locked: false,
+        id: "4aad0623-c90a-11e9-904f-d561aba1162f"
+      },
+      {
+        hex: "dddddd",
+        locked: false,
+        id: "4aad0624-c90a-11e9-904f-d561aba1162f"
+      }
+    ];
+    const originalColorId1 = wrapper.state("colors")[0].id;
+    const originalColorId2 = wrapper.state("colors")[1].id;
     instance.createScheme()
-
-    const newColorId = wrapper.state("colors")[0].id;
-
-    expect(originalColorId).not.toEqual(newColorId);
+    const newColorId1 = wrapper.state("colors")[0].id;
+    const newColorId2 = wrapper.state("colors")[1].id;
+    expect(originalColorId1).toEqual(newColorId1);
+    expect(originalColorId2).not.toEqual(newColorId2);
   });
 
-  
+  it("should add a new array of five colors to state of colors if color state is empty", () => {
+    instance.state.colors = [];
+    instance.createScheme();
+    expect(wrapper.state("colors").length).toEqual(5);
+  });
+
 });
