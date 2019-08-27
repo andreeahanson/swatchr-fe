@@ -98,4 +98,19 @@ describe("Palette", () => {
     expect(mockReturnProjectWithPalettes).toHaveBeenCalled();
   });
 
+  it("should call handleEdit, toggleEditName, and clearForm when handleKeyDown is invoked", () => {
+    const mockEvent = {
+      preventDefault: jest.fn(),
+      keyCode: 13
+    };
+    instance.handleEdit = jest.fn();
+    instance.toggleEditName = jest.fn();
+    instance.clearForm = jest.fn();
+    instance.handleKeyDown(mockEvent);
+
+    expect(instance.handleEdit).toHaveBeenCalled();
+    expect(instance.toggleEditName).toHaveBeenCalled();
+    expect(instance.clearForm).toHaveBeenCalled();
+  });
+
 });
