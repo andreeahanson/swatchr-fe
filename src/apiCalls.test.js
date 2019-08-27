@@ -269,7 +269,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postProject(mockProject)).rejects.toEqual(Error('There was an error with the server'))
+      expect(postProject(mockProject)).rejects.toEqual({ message : "Could not add new project" })
     })
   });
 
@@ -332,7 +332,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postPalette(mockPalette)).rejects.toEqual(Error('There was an error with the server'))
+      expect(postPalette(mockPalette)).rejects.toEqual({ message : "Could not add new palette" })
     });
   });
 
@@ -375,7 +375,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(deleteProject('http://swatchr-be.herokuapp.com/api/v1/projects/1')).rejects.toEqual(Error('There was a problem with the server'))
+      expect(deleteProject('http://swatchr-be.herokuapp.com/api/v1/projects/1')).rejects.toEqual({ message : "There was an error with the server" })
     });
   });
 
@@ -418,7 +418,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(deletePalette('http://swatchr-be.herokuapp.com/api/v1/palettes/1')).rejects.toEqual(Error('There was a problem with the server'))
+      expect(deletePalette('http://swatchr-be.herokuapp.com/api/v1/palettes/1')).rejects.toEqual({ message : "There was an error with the server" })
     });
   });
 
@@ -483,7 +483,7 @@ describe("apiCalls", () => {
         })
       });
 
-      expect(patchProject(mockProject)).rejects.toEqual(Error('Could not edit the name of the project'))
+      expect(patchProject(mockProject)).rejects.toEqual(Error('Could not edit name of project'))
     });
 
     it('SAD: should return an error if promise rejects', () => {
@@ -493,7 +493,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postProject(mockProject)).rejects.toEqual(Error('There was an error with the server'))
+      expect(postProject(mockProject)).rejects.toEqual({ message : "There was an error with the server" })
     });
   });
 
@@ -555,7 +555,7 @@ describe("apiCalls", () => {
         });
       });
 
-      expect(postPalette(mockPalette)).rejects.toEqual(Error('There was an error with the server'))
+      expect(postPalette(mockPalette)).rejects.toEqual({ message : "There was an error with the server" })
     });
   });
 
