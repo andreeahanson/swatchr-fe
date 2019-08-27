@@ -20,7 +20,8 @@ class App extends Component {
     projects: [],
     colors: [],
     schemeHover: false,
-    currentProject: {}
+    currentProject: {},
+    error: ''
   };
 
   async componentDidMount() {
@@ -43,19 +44,23 @@ class App extends Component {
   };
 
   returnProjectWithPalettes = async id => {
-    const rawProjects = await fetchProjects(
-      "http://swatchr-be.herokuapp.com/api/v1/projects"
-    );
-    const projects = this.cleanProjects(rawProjects);
-    projects.reverse();
-    if (id === -1) {
-      this.setState({ projects, currentProject: {} });
-    } else {
-      const currentProject = await fetchOneProject(
-        `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
+    try {
+      const rawProjects = await fetchProjects(
+        "http://swatchr-be.herokuapp.com/api/v1/projects"
       );
-      currentProject.palettes.reverse();
-      this.setState({ projects, currentProject });
+      const projects = this.cleanProjects(rawProjects);
+      projects.reverse();
+      if (id === -1) {
+        this.setState({ projects, currentProject: {} });
+      } else {
+        const currentProject = await fetchOneProject(
+          `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
+        );
+        currentProject.palettes.reverse();
+        this.setState({ projects, currentProject });
+      }
+    } catch (error) {
+      this.setState({ error : error.message })
     }
   };
 
