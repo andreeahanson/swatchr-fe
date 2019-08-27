@@ -293,18 +293,6 @@ describe("App", () => {
     expect(cleanedProjects[0].created_at).toEqual(undefined);
   });
 
-  // it('should set state of currentProject to empty object if there is no project selected', () => {
-
-  // });
-
-  // it('should call fetchOneProject if a project is selected when returnProjectWithPalettes is invoked', () => {
-
-  // });
-
-  // it('should set the state of error to error.message if the try was unsuccessfull', () => {
-
-  // });
-
   it('should call postPalette with the correct URL and palette', () => {
     const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1/palettes`
 
