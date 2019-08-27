@@ -40,4 +40,11 @@ describe('App', () => {
 
     expect(wrapper.state("schemeHover")).toEqual(true);
   });
+
+  it("should invoke createScheme when handleClick is invoked", () => {
+    instance.createScheme = jest.fn();
+    instance.handleClick();
+
+    expect(instance.createScheme).toHaveBeenCalled();
+  });
 })
