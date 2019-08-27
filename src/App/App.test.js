@@ -32,5 +32,12 @@ describe('App', () => {
     instance.onMouseOut();
 
     expect(wrapper.state("schemeHover")).toEqual(false);
-  })
+  });
+
+  it("should set state of schemeHover to false when onMouseOver is invoked", () => {
+    instance.state.schemeHover = false;
+    instance.onMouseOver();
+
+    expect(wrapper.state("schemeHover")).toEqual(true);
+  });
 })
