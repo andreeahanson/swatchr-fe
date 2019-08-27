@@ -96,5 +96,11 @@ describe('Sidebar', () => {
     expect(wrapper.state('navDisplay')).toEqual(true);
   });
 
+  it('should change state property navDisplay from false to true when handleChange is invoked', () => {
+    let mockEvent = { target: { value: "Current Mock Project" } }
+    wrapper.instance().handleChange(mockEvent);
+
+    expect(wrapper.state('currentProjectName')).toEqual(mockEvent.target.value);
+  });
 
 })
