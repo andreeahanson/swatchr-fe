@@ -184,10 +184,22 @@ describe("App", () => {
   it("should change prop of locked in color obj that matches lockedColor id", () => {
     const unlockedColor = wrapper.state("colors")[0];
     const lockedColor = { ...unlockedColor, locked: true }
-    
+
     instance.toggleLockedColor(lockedColor);
 
     expect(wrapper.state("colors")[0]).toEqual(lockedColor);
-  })
+  });
+
+  it("should not change prop of locked in color obj that doesn't match lockedColor id", () => {
+    const unlockedColor1 = wrapper.state("colors")[0];
+    const lockedColor = { ...unlockedColor1, locked: true };
+    const unlockedColor2 = wrapper.state("colors")[1];
+
+    instance.toggleLockedColor(lockedColor);
+    
+    expect(wrapper.state("colors")[1]).toEqual(unlockedColor2);
+  });
+
+
 
 });
