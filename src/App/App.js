@@ -65,51 +65,75 @@ class App extends Component {
   };
 
   deleteFetchPalette = async id => {
-    await deletePalette(
-      `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`
-    );
+    try{
+      await deletePalette(
+        `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`
+      );
+    } catch (error) {
+      this.setState({ error : error.message })
+    }
   };
 
   deleteFetchProject = async id => {
-    await deleteProject(
-      `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
-    );
+    try {
+      await deleteProject(
+        `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`
+      );
+    } catch (error) {
+      this.setState({ error : error.message })
+    }
   };
 
   patchFetchPalette = async (name, id) => {
-    await patchPalette(
-      `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`,
-      { name }
-    );
+    try {
+      await patchPalette(
+        `http://swatchr-be.herokuapp.com/api/v1/palettes/${id}`,
+        { name }
+      );
+    } catch (error) {
+      this.setState({ error : error.message })
+    }
   };
 
   patchFetchProject = async (name, id) => {
-    await patchProject(
-      `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`,
-      { name }
-    );
+    try {
+      await patchProject(
+        `http://swatchr-be.herokuapp.com/api/v1/projects/${id}`,
+        { name }
+      );
+    } catch (error) {
+      this.setState({ error : error.message })
+    }
   };
 
   postFetchProject = async newProject => {
-    const newProjectId = await postProject(
-      "http://swatchr-be.herokuapp.com/api/v1/projects",
-      newProject
-    );
-    const project = {
-      id: newProjectId.id[0],
-      name: newProject.project.name
-    };
-    const projects = [ project, ...this.state.projects ];
-    this.returnProjectWithPalettes(newProjectId.id[0]);
-    this.setState({ projects });
+    try {
+      const newProjectId = await postProject(
+        "http://swatchr-be.herokuapp.com/api/v1/projects",
+        newProject
+      );
+      const project = {
+        id: newProjectId.id[0],
+        name: newProject.project.name
+      };
+      const projects = [ project, ...this.state.projects ];
+      this.returnProjectWithPalettes(newProjectId.id[0]);
+      this.setState({ projects });
+    } catch (error) {
+      this.setState({ error : error.message })
+    }
   };
 
   postFetchPalette = async (newPalette, project) => {
-    await postPalette(
-      `http://swatchr-be.herokuapp.com/api/v1/projects/${project.id}/palettes`,
-      newPalette
-    );
-    this.returnProjectWithPalettes(project.id);
+    try {
+      await postPalette(
+        `http://swatchr-be.herokuapp.com/api/v1/projects/${project.id}/palettes`,
+        newPalette
+      );
+      this.returnProjectWithPalettes(project.id);
+    } catch (error) {
+      this.setState({ error : error.message })
+    }
   };
 
   cleanColors = colors => {
