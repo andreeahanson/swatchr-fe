@@ -196,10 +196,20 @@ describe("App", () => {
     const unlockedColor2 = wrapper.state("colors")[1];
 
     instance.toggleLockedColor(lockedColor);
-    
+
     expect(wrapper.state("colors")[1]).toEqual(unlockedColor2);
   });
 
+  it("should clean array of colors", () => {
+    const mockColors = [ "ffffff", "cccccc", "dddddd", "aaaaaa", "bbbbbb" ];
 
+    const cleanedColors = instance.cleanColors(mockColors);
+
+    expect(cleanedColors[0].hex).toEqual(mockColors[0].toUpperCase());
+  })
+
+  // it("should reset color state to new cleaned array of color objects", () {
+
+  // })
 
 });
