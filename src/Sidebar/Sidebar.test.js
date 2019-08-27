@@ -126,5 +126,13 @@ describe('Sidebar', () => {
     expect(wrapper.state('selectedProject')).toEqual("Select Project")
     expect(wrapper.state('displayHeaderButtons')).toEqual(false)
     expect(wrapper.state('currentProject')).toEqual({ id: -1 })
+  });
+
+  it('should change the state of displayInput from false to true when toggleEditName is invoked', () => {
+    wrapper.state.displayInput = false;
+
+    wrapper.instance().toggleEditName();
+
+    expect(wrapper.state('displayInput')).toEqual(true);
   })
 })
