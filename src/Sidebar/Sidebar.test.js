@@ -61,19 +61,13 @@ describe('Sidebar', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  // it('should call handleEdit and clearForm when handleKeyDown is invoked', () => {
-  //   // wrapper.state.displayInput = false;
-  //   // wrapper.state.selectedProject = "Project1";
-  //   // wrapper.state.navDisplay = true;
+  it('should call handleEdit and clearForm when handleKeyDown is invoked', () => {
+    const mockEvent = { keyCode: 13, preventDefault: jest.fn() }
+    
+    wrapper.instance().handleKeyDown(mockEvent)
 
-  //   wrapper.find('.edit-project-input').simulate('keyDown', {
-  //     which: 13,
-  //     ctrlKey: true
-  //   })
-
-  //   expect(wrapper.instance().handleEdit).toHaveBeenCalled();
-  //   expect(wrapper.instance().clearForm).toHaveBeenCalled();
-  // });
+    expect(wrapper.state('displayInput')).toEqual(false)
+  });
 
   it('should call patchFetchProject and returnProjectWithPalettes when handleEdit is invoked', async () => {
     wrapper.instance().handleEdit(mockCurrentProject, mockCurrentProject.id)
@@ -117,5 +111,20 @@ describe('Sidebar', () => {
 
     expect(wrapper.instance().props.deleteFetchProject).toHaveBeenCalled();
     expect(wrapper.instance().props.returnProjectWithPalettes).toHaveBeenCalled();
+  });
+
+  it.skip('should change the state for currentProject (to -1), for selectedProject (to "Select Project"), and for displayHeaderButtons (from true to false) when handleDelete is invoked', () => {
+    const mockEvent = { preventDefault: jest.fn() }
+
+    wrapper.state.selectedProject = "Mock Project"
+    wrapper.state.displayHeaderButtons = true
+    wrapper.state.currentProject = { id: 1 }
+
+    wrapper.instance().handleDelete(mockEvent)
+    wrapper.instance().props.returnProjectWithPalettes(-1)
+
+    expect(wrapper.state('selectedProject')).toEqual("Select Project")
+    expect(wrapper.state('displayHeaderButtons')).toEqual(false)
+    expect(wrapper.state('currentProject')).toEqual({ id: -1 })
   })
 })
