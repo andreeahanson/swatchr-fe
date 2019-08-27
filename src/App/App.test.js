@@ -137,4 +137,16 @@ describe("App", () => {
 
     expect(colors).toEqual(expectedColors);
   });
+
+  it("should set state of colors to new scheme when createScheme is invoked", () => {
+    const originalColorId = wrapper.state("colors")[0].id;
+
+    instance.createScheme()
+
+    const newColorId = wrapper.state("colors")[0].id;
+
+    expect(originalColorId).not.toEqual(newColorId);
+  });
+
+  
 });
