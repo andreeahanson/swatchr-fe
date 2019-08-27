@@ -4,9 +4,11 @@ import { shallow } from 'enzyme';
 
 describe('App', () => {
   let wrapper;
+  let instance;
 
   beforeEach(() => {
     wrapper = shallow(<App />)
+    instance = wrapper.instance();
   })
 
   it('should match the snapshot', () => {
@@ -23,5 +25,12 @@ describe('App', () => {
     wrapper.instance().cleanProjects(projects);
 
     expect(result).toEqual(cleanProjects);
+  });
+
+  it("should set state of schemeHover to false when onMouseOut is invoked", () => {
+    instance.state.schemeHover = true;
+    instance.onMouseOut();
+
+    expect(wrapper.state("schemeHover")).toEqual(false);
   })
 })
