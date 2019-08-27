@@ -153,5 +153,14 @@ describe('Sidebar', () => {
     wrapper.instance().selectProject(mockEvent)
 
     expect(wrapper.state('currentProject').id).toEqual(mockProjectId)
+  });
+
+  it('should update state of currentProject to the projectValue when selectProject is called and there is a project selected', () => {
+    const mockEvent = { nativeEvent: { target : { selectedOptions : [ { id: 1 } ] } } }
+    const mockProjectId = mockEvent.nativeEvent.target.selectedOptions[0].id
+    
+    wrapper.instance().selectProject(mockEvent)
+
+    expect(wrapper.instance().props.returnProjectWithPalettes).toHaveBeenCalledWith(mockProjectId);
   })
 })
