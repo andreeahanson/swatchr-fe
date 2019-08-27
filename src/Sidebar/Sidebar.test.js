@@ -134,5 +134,15 @@ describe('Sidebar', () => {
     wrapper.instance().toggleEditName();
 
     expect(wrapper.state('displayInput')).toEqual(true);
+  });
+
+  it('should update state of currentProject to "Select Project" when selectProject is called but there is no project selected', () => {
+    const mockEvent = { nativeEvent: { target :  1 } }
+    const mockProjectId = -1;
+    wrapper.state.currentProject = { id: -1 }
+
+    wrapper.instance().selectProject(mockEvent)
+
+    expect(wrapper.state('selectedProject')).toEqual("Select Project")
   })
 })
