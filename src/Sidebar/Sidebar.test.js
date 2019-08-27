@@ -103,4 +103,9 @@ describe('Sidebar', () => {
     expect(wrapper.state('currentProjectName')).toEqual(mockEvent.target.value);
   });
 
+  it("should update state of name to empty string when clearForm is invoked", () => {
+    wrapper.instance().clearForm();
+
+    expect(wrapper.state("currentProjectName")).toEqual("");
+  });
 })
