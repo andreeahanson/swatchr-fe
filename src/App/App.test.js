@@ -181,4 +181,13 @@ describe("App", () => {
     expect(wrapper.state("colors").length).toEqual(5);
   });
 
+  it("should change prop of locked in color obj that matches lockedColor id", () => {
+    const unlockedColor = wrapper.state("colors")[0];
+    const lockedColor = { ...unlockedColor, locked: true }
+    
+    instance.toggleLockedColor(lockedColor);
+
+    expect(wrapper.state("colors")[0]).toEqual(lockedColor);
+  })
+
 });

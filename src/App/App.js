@@ -151,14 +151,10 @@ class App extends Component {
     this.setState({ colors });
   };
 
-  toggleLockedColor = colorObj => {
+  toggleLockedColor = lockedColor => {
     const colors = this.state.colors.map(color => {
-      if (color.id === colorObj.id) {
-        return {
-          hex: colorObj.hex,
-          locked: colorObj.locked,
-          id: colorObj.id
-        };
+      if (color.id === lockedColor.id) {
+        return lockedColor;
       } else {
         return color;
       }
