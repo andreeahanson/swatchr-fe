@@ -25,6 +25,20 @@ describe('Sidebar', () => {
       { id: 1 , name: "Mock Palette", project_id: 1, color1: "red", color2: "yellow", color3:"blue", color4:"green", color5:"pink"}
     ]
   }
+  let mockProject = {
+    id: 1,
+    name: "Current Mock Project",
+    palettes: [
+      { id: 1 , name: "Mock Palette", project_id: 1, color1: "red", color2: "yellow", color3:"blue", color4:"green", color5:"pink"}
+    ]
+  }
+
+  window.fetch = jest.fn().mockImplementation(() => {
+    return Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(mockProject)
+    });
+  });
 
   beforeEach(() => {
     wrapper = shallow(
@@ -47,4 +61,31 @@ describe('Sidebar', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  // it('should call handleEdit and clearForm when handleKeyDown is invoked', () => {
+  //   // wrapper.state.displayInput = false;
+  //   // wrapper.state.selectedProject = "Project1";
+  //   // wrapper.state.navDisplay = true;
+
+  //   wrapper.find('.edit-project-input').simulate('keyDown', {
+  //     which: 13,
+  //     ctrlKey: true
+  //   })
+
+  //   expect(wrapper.instance().handleEdit).toHaveBeenCalled();
+  //   expect(wrapper.instance().clearForm).toHaveBeenCalled();
+  // });
+
+  it('should call patchFetchProject and returnProjectWithPalettes when handleEdit is invoked', async () => {
+    wrapper.instance().handleEdit(mockCurrentProject, mockCurrentProject.id)
+
+    await expect(wrapper.instance().props.patchFetchProject).toHaveBeenCalled();
+    expect(wrapper.instance().props.returnProjectWithPalettes).toHaveBeenCalled();
+  });
+
+  it('should change state property displayHeaderButtons from false to true', () => {
+    wrapper.state.displayHeaderButtons = false;
+    wrapper.instance().toggleHeaderButtons();
+
+    expect(wrapper.state('displayHeaderButtons')).toEqual(true);
+  })
 })
