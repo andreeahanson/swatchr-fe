@@ -1,14 +1,66 @@
 import React from "react";
 import App from "./App";
 import { shallow } from "enzyme";
+import {
+  fetchProjects,
+  fetchOneProject,
+  postProject,
+  postPalette,
+  deletePalette,
+  deleteProject,
+  patchPalette,
+  patchProject
+} from "../apiCalls";
+jest.mock('../apiCalls', () => ({
+  fetchProjects: jest.fn().mockImplementation(() => {
+    return [ {id: 1, name: "Mock Project", created_at: "dsfsd", updated_at: "565hkfgdfgfd"} ] 
+  }),
+  fetchOneProject: jest.fn().mockImplementation(() => {
+    return {id: 1, name: "Mock Project", created_at: "dsfsd", updated_at: "565hkfgdfgfd", palettes: [ {
+      name: "Mock Palette",
+      project_id: 1,
+      color1: "red",
+      color2: "green",
+      color3: "pink",
+      color4: "blue",
+      color5: "orange"
+    } ]}
+  }),
+  postProject: jest.fn().mockImplementation(() => {
+    return { id: [2] }
+  }),
+  postPalette: jest.fn().mockImplementation(() => {
+    return { id: 1 }
+  }),
+  deletePalette: jest.fn(),
+  deleteProject: jest.fn(),
+  patchPalette: jest.fn().mockImplementation(() => {
+    return { id: 1, name: "Changed palette"}
+  }),
+  patchProject: jest.fn().mockImplementation(() => {
+    return { id:1, name: "Changed project" }
+  })
+}));
 
 describe("App", () => {
   let wrapper;
   let instance;
+  let mockProjects;
 
   beforeEach(() => {
     wrapper = shallow(<App />);
     instance = wrapper.instance();
+    mockProjects = [
+      { id: 1, name: "Mock Project 1" },
+      { id: 2, name: "Mock Project 2" }
+    ]
+
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockProjects)
+      });
+    });
   });
 
   it("should match the snapshot", () => {
@@ -239,6 +291,89 @@ describe("App", () => {
 
     expect(mockProjects[0].created_at).toEqual("s2454134t6iubrg");
     expect(cleanedProjects[0].created_at).toEqual(undefined);
+  });
+
+  it('should call postPalette with the correct URL and palette', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1/palettes`
+
+    const newPalette = {
+      name: "Mock Palette",
+      project_id: 1,
+      color1: "red",
+      color2: "green",
+      color3: "pink",
+      color4: "blue",
+      color5: "orange"
+    }
+
+    const project = { id : 1, name: "Mock Project" }
+
+    instance.postFetchPalette(newPalette, project);
+
+    expect(postPalette).toHaveBeenCalledWith(url, newPalette)
+  });
+
+  it('should call postProject with the correct URL and project', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects`
+
+    const newProject = {
+      name: "Mock added project",
+      id: 2
+    }
+
+    instance.postFetchProject(newProject);
+
+    expect(postProject).toHaveBeenCalledWith(url, newProject)
+  });
+
+  it.skip('should add the newly added project to the array of projects', async () => {
+    const newProject = {
+      project: {
+        id: 2,
+        name: "Mock added project"
+      }
+    }
+
+    instance.postFetchProject(newProject);
+    expect(wrapper.state("projects").length).toEqual(2);
+  })
+
+  it('should call patchProject with the correct URL and name', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1`
+
+    const name = "Newest name ever"
+
+    instance.patchFetchProject(name, 1);
+
+    expect(patchProject).toHaveBeenCalledWith(url, {name})
+  });
+
+  it('should call patchPalette with the correct URL and name', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/palettes/1`
+
+    const name = "Newest name for palette"
+
+    instance.patchFetchPalette(name, 1);
+
+    expect(patchPalette).toHaveBeenCalledWith(url, {name})
+  });
+
+  it('should call deleteProject with the correct URL', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1`
+    const mockId = 1
+
+    instance.deleteFetchProject(mockId);
+
+    expect(deleteProject).toHaveBeenCalledWith(url)
+  });
+
+  it('should call deletePalette with the correct URL', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/palettes/1`
+    const mockId = 1
+
+    instance.deleteFetchPalette(mockId);
+
+    expect(deletePalette).toHaveBeenCalledWith(url)
   });
 
 });

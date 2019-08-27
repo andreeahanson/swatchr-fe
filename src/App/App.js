@@ -132,7 +132,7 @@ class App extends Component {
       );
       this.returnProjectWithPalettes(project.id);
     } catch (error) {
-      this.setState({ error : error.message })
+      this.setState({ error })
     }
   };
 
