@@ -305,7 +305,7 @@ describe("App", () => {
 
   // });
 
-  it('should call postPalette with the correct URL', () => {
+  it('should call postPalette with the correct URL and palette', () => {
     const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1/palettes`
 
     const newPalette = {
@@ -323,5 +323,18 @@ describe("App", () => {
     instance.postFetchPalette(newPalette, project);
 
     expect(postPalette).toHaveBeenCalledWith(url, newPalette)
-  })
+  });
+
+  it('should call postProject with the correct URL and project', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects`
+
+    const newProject = {
+      name: "Mock added project",
+      id: 2
+    }
+
+    instance.postFetchProject(newProject);
+
+    expect(postProject).toHaveBeenCalledWith(url, newProject)
+  });
 });
