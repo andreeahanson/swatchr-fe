@@ -215,8 +215,30 @@ describe("App", () => {
     instance.returnColors(mockColors);
 
     const newColorState = wrapper.state("colors");
-    
+
     expect(oldColorState[0].id).not.toEqual(newColorState[0].id);
-  })
+  });
+
+  it("should clean an array of projects", () => {
+    const mockProjects = [
+      {
+        name: "SampleName1",
+        id: 1,
+        created_at: "s2454134t6iubrg",
+        updated_at: "kjndf97y9314t"
+      },
+      {
+        name: "SampleName2",
+        id: 1,
+        created_at: "s2454wqgrq34tiubrg",
+        updated_at: "kjn134t23df97y9"
+      }
+    ];
+
+    const cleanedProjects = instance.cleanProjects(mockProjects);
+
+    expect(mockProjects[0].created_at).toEqual("s2454134t6iubrg");
+    expect(cleanedProjects[0].created_at).toEqual(undefined);
+  });
 
 });
