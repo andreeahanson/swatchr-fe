@@ -50,18 +50,67 @@ describe("Palette", () => {
   });
 
   it("should update state of hover to true when displayButtons is invoked", () => {
-    wrapper.state.hover = false;
+    instance.state.hover = false;
     instance.displayButtons();
 
     expect(wrapper.state("hover")).toEqual(true);
   });
 
   it("should update state of hover to false when hideButtons is invoked", () => {
-    wrapper.state.hover = true;
+    instance.state.hover = true;
     instance.hideButtons();
 
     expect(wrapper.state("hover")).toEqual(false);
   });
 
-  
+  it("should call returnColors when handleClick is invoked", () => {
+    instance.handleClick();
+
+    expect(mockReturnColors).toHaveBeenCalled();
+  });
+
+  it("should update state of name to the correct name when handleChange is invoked", () => {
+    const mockEvent = {
+      target: {
+        value: "Mock Palette Name"
+      }
+    }
+    instance.state.name = "";
+    instance.handleChange(mockEvent);
+
+    expect(wrapper.state("name")).toEqual("Mock Palette Name");
+  });
+
+  it("should update displayInput state when toggleEditName is invoked", () => {
+    instance.state.displayInput = false
+    instance.toggleEditName();
+
+    expect(wrapper.state("displayInput")).toEqual(true);
+  });
+
+  it("should call deleteFetchPatch and returnProjectsWithPalettes when handleDelete is invoked", () => {
+    const mockEvent = {
+      preventDefault: jest.fn()
+    };
+    instance.handleDelete(mockEvent);
+
+    expect(mockDeleteFetchPalette).toHaveBeenCalled();
+    expect(mockReturnProjectWithPalettes).toHaveBeenCalled();
+  });
+
+  it("should call handleEdit, toggleEditName, and clearForm when handleKeyDown is invoked", () => {
+    const mockEvent = {
+      preventDefault: jest.fn(),
+      keyCode: 13
+    };
+    instance.handleEdit = jest.fn();
+    instance.toggleEditName = jest.fn();
+    instance.clearForm = jest.fn();
+    instance.handleKeyDown(mockEvent);
+
+    expect(instance.handleEdit).toHaveBeenCalled();
+    expect(instance.toggleEditName).toHaveBeenCalled();
+    expect(instance.clearForm).toHaveBeenCalled();
+  });
+
 });
