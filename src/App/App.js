@@ -225,7 +225,7 @@ class App extends Component {
           >
             <p>Generate scheme</p>
             <img
-              className={this.state.schemeHover && "arrow-bounce"}
+              className={this.state.schemeHover ? "arrow-bounce" : undefined }
               src="./down.png"
               alt="down arrow"
             />

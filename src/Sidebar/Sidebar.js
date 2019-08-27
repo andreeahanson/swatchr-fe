@@ -15,7 +15,7 @@ class Sidebar extends Component {
     displayHeaderButtons: false
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.currentProject !== this.props.currentProject) {
       this.setState({
         currentProject: nextProps.currentProject,
