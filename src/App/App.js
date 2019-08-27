@@ -132,7 +132,6 @@ class App extends Component {
       );
       this.returnProjectWithPalettes(project.id);
     } catch (error) {
-      console.log(error)
       this.setState({ error })
     }
   };

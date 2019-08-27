@@ -27,7 +27,7 @@ jest.mock('../apiCalls', () => ({
     } ]}
   }),
   postProject: jest.fn().mockImplementation(() => {
-    return { id: [1] }
+    return { id: [2] }
   }),
   postPalette: jest.fn().mockImplementation(() => {
     return { id: 1 }
@@ -338,6 +338,18 @@ describe("App", () => {
     expect(postProject).toHaveBeenCalledWith(url, newProject)
   });
 
+  it.skip('should add the newly added project to the array of projects', async () => {
+    const newProject = {
+      project: {
+        id: 2,
+        name: "Mock added project"
+      }
+    }
+
+    instance.postFetchProject(newProject);
+    expect(wrapper.state("projects").length).toEqual(2);
+  })
+
   it('should call patchProject with the correct URL and name', () => {
     const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1`
 
@@ -347,4 +359,15 @@ describe("App", () => {
 
     expect(patchProject).toHaveBeenCalledWith(url, {name})
   });
+
+  it('should call patchPalette with the correct URL and name', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/palettes/1`
+
+    const name = "Newest name for palette"
+
+    instance.patchFetchPalette(name, 1);
+
+    expect(patchPalette).toHaveBeenCalledWith(url, {name})
+  });
+
 });
