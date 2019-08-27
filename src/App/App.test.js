@@ -208,8 +208,15 @@ describe("App", () => {
     expect(cleanedColors[0].hex).toEqual(mockColors[0].toUpperCase());
   })
 
-  // it("should reset color state to new cleaned array of color objects", () {
+  it("should reset color state to new cleaned array of color objects", () => {
+    const oldColorState = wrapper.state("colors");
+    const mockColors = ["ffffff", "cccccc", "dddddd", "aaaaaa", "bbbbbb"];
 
-  // })
+    instance.returnColors(mockColors);
+
+    const newColorState = wrapper.state("colors");
+    
+    expect(oldColorState[0].id).not.toEqual(newColorState[0].id);
+  })
 
 });
