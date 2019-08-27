@@ -108,4 +108,14 @@ describe('Sidebar', () => {
 
     expect(wrapper.state("currentProjectName")).toEqual("");
   });
+
+  it('should call deleteFetchProject and returnProjectWithPalettes when handleDelete is invoked', () => {
+    const mockEvent = { preventDefault: jest.fn() }
+
+    // wrapper.find('.close-img').simulate('click');
+    wrapper.instance().handleDelete(mockEvent)
+
+    expect(wrapper.instance().props.deleteFetchProject).toHaveBeenCalled();
+    expect(wrapper.instance().props.returnProjectWithPalettes).toHaveBeenCalled();
+  })
 })

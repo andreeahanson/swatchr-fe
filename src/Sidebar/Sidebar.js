@@ -178,6 +178,7 @@ class Sidebar extends Component {
                         src="./close.png"
                         alt="close icon"
                         onClick={this.handleDelete}
+                        className = "close-img"
                       />
                     </div>
                   )}
