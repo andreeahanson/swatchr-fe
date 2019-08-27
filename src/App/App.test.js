@@ -370,4 +370,13 @@ describe("App", () => {
     expect(patchPalette).toHaveBeenCalledWith(url, {name})
   });
 
+  it('should call deleteProject with the correct URL', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1`
+    const mockId = 1
+
+    instance.deleteFetchProject(mockId);
+
+    expect(deleteProject).toHaveBeenCalledWith(url)
+  });
+
 });
