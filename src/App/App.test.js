@@ -1,14 +1,66 @@
 import React from "react";
 import App from "./App";
 import { shallow } from "enzyme";
+import {
+  fetchProjects,
+  fetchOneProject,
+  postProject,
+  postPalette,
+  deletePalette,
+  deleteProject,
+  patchPalette,
+  patchProject
+} from "../apiCalls";
+jest.mock('../apiCalls', () => ({
+  fetchProjects: jest.fn().mockImplementation(() => {
+    return [ {id: 1, name: "Mock Project", created_at: "dsfsd", updated_at: "565hkfgdfgfd"} ] 
+  }),
+  fetchOneProject: jest.fn().mockImplementation(() => {
+    return {id: 1, name: "Mock Project", created_at: "dsfsd", updated_at: "565hkfgdfgfd", palettes: [ {
+      name: "Mock Palette",
+      project_id: 1,
+      color1: "red",
+      color2: "green",
+      color3: "pink",
+      color4: "blue",
+      color5: "orange"
+    } ]}
+  }),
+  postProject: jest.fn().mockImplementation(() => {
+    return { id: [1] }
+  }),
+  postPalette: jest.fn().mockImplementation(() => {
+    return { id: 1 }
+  }),
+  deletePalette: jest.fn(),
+  deleteProject: jest.fn(),
+  patchPalette: jest.fn().mockImplementation(() => {
+    return { id: 1, name: "Changed palette"}
+  }),
+  patchProject: jest.fn().mockImplementation(() => {
+    return { id:1, name: "Changed project" }
+  })
+}));
 
 describe("App", () => {
   let wrapper;
   let instance;
+  let mockProjects;
 
   beforeEach(() => {
     wrapper = shallow(<App />);
     instance = wrapper.instance();
+    mockProjects = [
+      { id: 1, name: "Mock Project 1" },
+      { id: 2, name: "Mock Project 2" }
+    ]
+
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockProjects)
+      });
+    });
   });
 
   it("should match the snapshot", () => {
@@ -241,4 +293,35 @@ describe("App", () => {
     expect(cleanedProjects[0].created_at).toEqual(undefined);
   });
 
+  // it('should set state of currentProject to empty object if there is no project selected', () => {
+
+  // });
+
+  // it('should call fetchOneProject if a project is selected when returnProjectWithPalettes is invoked', () => {
+
+  // });
+
+  // it('should set the state of error to error.message if the try was unsuccessfull', () => {
+
+  // });
+
+  it('should call postPalette with the correct URL', () => {
+    const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1/palettes`
+
+    const newPalette = {
+      name: "Mock Palette",
+      project_id: 1,
+      color1: "red",
+      color2: "green",
+      color3: "pink",
+      color4: "blue",
+      color5: "orange"
+    }
+
+    const project = { id : 1, name: "Mock Project" }
+
+    instance.postFetchPalette(newPalette, project);
+
+    expect(postPalette).toHaveBeenCalledWith(url, newPalette)
+  })
 });
