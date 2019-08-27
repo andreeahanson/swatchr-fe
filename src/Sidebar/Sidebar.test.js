@@ -82,10 +82,19 @@ describe('Sidebar', () => {
     expect(wrapper.instance().props.returnProjectWithPalettes).toHaveBeenCalled();
   });
 
-  it('should change state property displayHeaderButtons from false to true', () => {
+  it('should change state property displayHeaderButtons from false to true when toggleHeaderButtons is invoked', () => {
     wrapper.state.displayHeaderButtons = false;
     wrapper.instance().toggleHeaderButtons();
 
     expect(wrapper.state('displayHeaderButtons')).toEqual(true);
-  })
+  });
+
+  it('should change state property navDisplay from false to true when toggleNav is invoked', () => {
+    wrapper.state.navDisplay = false;
+    wrapper.instance().toggleNav();
+
+    expect(wrapper.state('navDisplay')).toEqual(true);
+  });
+
+
 })
