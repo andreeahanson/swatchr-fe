@@ -144,5 +144,14 @@ describe('Sidebar', () => {
     wrapper.instance().selectProject(mockEvent)
 
     expect(wrapper.state('selectedProject')).toEqual("Select Project")
+  });
+
+  it('should update state of currentProject to "Select Project" when selectProject is called but there is no project selected', () => {
+    const mockEvent = { nativeEvent: { target : { selectedOptions : [ { id: -1 } ] } } }
+    const mockProjectId = mockEvent.nativeEvent.target.selectedOptions[0].id
+    
+    wrapper.instance().selectProject(mockEvent)
+
+    expect(wrapper.state('currentProject').id).toEqual(mockProjectId)
   })
 })
