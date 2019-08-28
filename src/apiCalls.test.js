@@ -19,12 +19,6 @@ describe("apiCalls", () => {
       });
     });
 
-    it.skip("should be called with correct URL", () => {
-      const expected = "http://swatchr-be.herokuapp.com/api/v1/projects";
-      fetchProjects();
-      expect(window.fetch).toHaveBeenCalledWith(expected);
-    });
-
     it("HAPPY: should return with a parsed response", async () => {
       const result = await fetchProjects();
       expect(result).toEqual(mockProjects);
@@ -76,12 +70,6 @@ describe("apiCalls", () => {
       });
     });
 
-    it.skip("should be called with correct URL", () => {
-      const expected = "http://swatchr-be.herokuapp.com/api/v1/projects/1";
-      fetchOneProject();
-      expect(window.fetch).toHaveBeenCalledWith(expected);
-    });
-
     it("HAPPY: should return with a parsed response", async () => {
       const result = await fetchOneProject();
       expect(result).toEqual(mockProject);
@@ -130,12 +118,6 @@ describe("apiCalls", () => {
       });
     });
 
-    it.skip("should be called with correct URL", () => {
-      const expected = "http://swatchr-be.herokuapp.com/api/v1/palettes";
-      fetchPalettes();
-      expect(window.fetch).toHaveBeenCalledWith(expected);
-    });
-
     it("HAPPY: should return with a parsed response", async () => {
       const result = await fetchPalettes();
       expect(result).toEqual(mockPalettes);
@@ -172,12 +154,6 @@ describe("apiCalls", () => {
           json: () => Promise.resolve(mockPalette)
         });
       });
-    });
-
-    it.skip("should be called with correct URL", () => {
-      const expected = "http://swatchr-be.herokuapp.com/api/v1/projects/1/palettes";
-      fetchOnePalette();
-      expect(window.fetch).toHaveBeenCalledWith(expected);
     });
 
     it("HAPPY: should return with a parsed response", async () => {
@@ -234,17 +210,6 @@ describe("apiCalls", () => {
       });
     });
 
-    it.skip('should be called with correct data', () => {
-      const expected = [
-        'http://swatchr-be.herokuapp.com/api/v1/projects',
-        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mockProject) }
-      ];
-
-      postProject(mockProject);
-
-      expect(window.fetch).toHaveBeenCalledWith(...expected)
-    });
-
     it('HAPPY: should return a parsed response', async () => {
       const result = await postProject(mockProject);
 
@@ -295,17 +260,6 @@ describe("apiCalls", () => {
           json: () => Promise.resolve(mockResponse)
         });
       });
-    });
-
-    it.skip('should be called with correct data', () => {
-      const expected = [
-        'http://swatchr-be.herokuapp.com/api/v1/projects/1/palettes',
-        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mockPalette) }
-      ];
-
-      postPalette(mockPalette);
-
-      expect(window.fetch).toHaveBeenCalledWith(...expected)
     });
 
     it('HAPPY: should return a parsed response', async () => {
@@ -459,17 +413,6 @@ describe("apiCalls", () => {
       });
     });
 
-    it.skip('should be called with correct data', () => {
-      const expected = [
-        'http://swatchr-be.herokuapp.com/api/v1/projects/1',
-        { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mockProject) }
-      ];
-
-      patchProject(mockProject);
-
-      expect(window.fetch).toHaveBeenCalledWith(...expected)
-    });
-
     it('HAPPY: should return a parsed response', async () => {
       const result = await patchProject(mockProject);
 
@@ -519,17 +462,6 @@ describe("apiCalls", () => {
           json: () => Promise.resolve(mockResponse)
         });
       });
-    });
-
-    it.skip('should be called with correct data', () => {
-      const expected = [
-        'http://swatchr-be.herokuapp.com/api/v1/palettes/1',
-        { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(mockPalette) }
-      ];
-
-      patchPalette(mockPalette);
-
-      expect(window.fetch).toHaveBeenCalledWith(...expected)
     });
 
     it('HAPPY: should return a parsed response', async () => {
