@@ -113,21 +113,6 @@ describe('Sidebar', () => {
     expect(wrapper.instance().props.returnProjectWithPalettes).toHaveBeenCalled();
   });
 
-  it.skip('should change the state for currentProject (to -1), for selectedProject (to "Select Project"), and for displayHeaderButtons (from true to false) when handleDelete is invoked', () => {
-    const mockEvent = { preventDefault: jest.fn() }
-
-    wrapper.state.selectedProject = "Mock Project"
-    wrapper.state.displayHeaderButtons = true
-    wrapper.state.currentProject = { id: 1 }
-
-    wrapper.instance().handleDelete(mockEvent)
-    wrapper.instance().props.returnProjectWithPalettes(-1)
-
-    expect(wrapper.state('selectedProject')).toEqual("Select Project")
-    expect(wrapper.state('displayHeaderButtons')).toEqual(false)
-    expect(wrapper.state('currentProject')).toEqual({ id: -1 })
-  });
-
   it('should change the state of displayInput from false to true when toggleEditName is invoked', () => {
     wrapper.state.displayInput = false;
 
