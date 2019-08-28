@@ -27,28 +27,44 @@ npm start
 ```
 Then, go to http://localhost:3000/ in your browser to see the code running in the browser.
 
-## Screenshots
+## Screenshots & Gifs
 
 ### Page load
 
 ![Page Load](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Page%20Load.png)
 
-### Sidebar 
+### Generate colors
 
-![Sidebar Show](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Sidebar%20Show.png)
+![Generate colors](https://github.com/andreeahanson/swatchr-fe/blob/master/public/generate-colors.gif)
 
-### Sidebar with selected project
+### Lock colors
 
-![Selected Project](https://github.com/andreeahanson/swatchr-fe/blob/master/public/Sidebar%20With%20Selected%20Project.png)
+![Generate locked](https://github.com/andreeahanson/swatchr-fe/blob/master/public/generate-locked.gif)
+
+### Add inputs
+
+![Add stuff](https://github.com/andreeahanson/swatchr-fe/blob/master/public/add-stuff.gif)
+
+### Select a project
+
+![Old project](https://github.com/andreeahanson/swatchr-fe/blob/master/public/old-project.gif)
+
+### Edit project name
+
+![Worst project](https://github.com/andreeahanson/swatchr-fe/blob/master/public/worst-project.gif)
+
+### Edit palette
+
+![Edit palette](https://github.com/andreeahanson/swatchr-fe/blob/master/public/edit-palette.gif)
 
 ## Learning goals
 
 The primary learning goals for this project are:
 - connecting Back End & Front End repositories using CORS
 - multiple environments:
-- testing
-- making use of automatic continuous integration with TravisCI
-- deployment with Heroku
+  - testing
+  - making use of automatic continuous integration with TravisCI
+  - deployment with Heroku
 
 The second focus for this project is developing professional-level workflow habits. This includes:
 - using a PR template
