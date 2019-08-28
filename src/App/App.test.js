@@ -326,18 +326,6 @@ describe("App", () => {
     expect(postProject).toHaveBeenCalledWith(url, newProject)
   });
 
-  it.skip('should add the newly added project to the array of projects', async () => {
-    const newProject = {
-      project: {
-        id: 2,
-        name: "Mock added project"
-      }
-    }
-
-    instance.postFetchProject(newProject);
-    expect(wrapper.state("projects").length).toEqual(2);
-  })
-
   it('should call patchProject with the correct URL and name', () => {
     const url = `http://swatchr-be.herokuapp.com/api/v1/projects/1`
 
