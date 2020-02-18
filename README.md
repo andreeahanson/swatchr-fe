@@ -11,6 +11,7 @@ After creating one or several projects, the user can view them in the list of pr
 This project is intended to solidify our RESTful API design skills and get us familiarized with the patterns associated with building a single app across multiple repositories. Connected to this repository is another repository, meant to build the back-end of this project. The back-end repository, with its dedicated README can be found here: https://github.com/rumizen/swatchr-be.git. 
 
 ## [Production url](http://swatchr-app.herokuapp.com/)
+This will take up to a full minute to load because it is hosted for free on Heroku and must be woken up. Please bear with us.
 
 ## Installation
 
